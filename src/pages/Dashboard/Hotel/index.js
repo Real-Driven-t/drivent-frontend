@@ -30,7 +30,7 @@ export default function Hotel() {
           );
         }
 
-        if (resp.data.TicketType.includesHotel) {
+        if (resp.data.TicketType.includesHotel === false) {
           setContent(
             <>
               <StyledTypography variant="h4">Escolha de hotel e quarto</StyledTypography>
@@ -46,7 +46,9 @@ export default function Hotel() {
           <>
             <StyledTypography variant="h4">Escolha de hotel e quarto</StyledTypography>
             <MsgError>
-              É necessário que você conclua o seu cadastro <br /> Prossiga para a aba inscrição
+              Você precisa ter confirmado pagamento antes
+              <br />
+              de fazer a escolha de hospedagem
             </MsgError>
           </>
         );
