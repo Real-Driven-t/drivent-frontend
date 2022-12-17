@@ -34,16 +34,19 @@ const Card = styled.div`
   margin-right: 24px;
   background-color: ${(props) => (props.selected === props.name ? '#FFEED2' : '#fff')};
   border: ${(props) => (props.selected === props.name ? 'none' : '1px solid #cecece')};
+  user-select: none;
   cursor: pointer;
   span {
     color: #898989;
     font-size: 14px;
     font-weight: 400;
     margin-top: 3px;
+    user-select: none;
   }
   p {
     color: #454545;
     font-size: 16px;
     font-weight: 400;
+    user-select: none;
   }
 `;
