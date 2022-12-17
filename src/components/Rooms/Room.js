@@ -10,18 +10,25 @@ function createFreeVacancies(number, setBackground) {
   return vacancies;
 }
 function createVacanciesOccupied(number) {
-  return;
+  const vacancies = [];
+  for (let i = 1; i <= number; i++) {
+    vacancies.push(<VacancyOccupied />);
+  }
+  return vacancies;
 }
 
 export default function Room({ number, capacity, bookings }) {
   const [background, setBackground] = useState('white');
   const freeVacancies = capacity - bookings;
+
   return (
-    <RoomStyle background={background}>
+    <RoomStyle background={freeVacancies === 0 ? '#E9E9E9' : background} opacity={freeVacancies === 0 ? '0.5' : '1'}>
       <span>{number}</span>
       <div>
-        {createFreeVacancies(freeVacancies, setBackground).map((e) => e)}
-        {/* <VacancyOccupied /> */}
+        <div>
+          {createFreeVacancies(freeVacancies, setBackground).map((e) => e)}
+          {createVacanciesOccupied(bookings).map((e) => e)}
+        </div>
       </div>
     </RoomStyle>
   );
@@ -39,6 +46,7 @@ const RoomStyle = styled.div`
   padding-right: 10px;
   background-color: ${(props) => props.background};
   margin: 0 17px 8px 0;
+  opacity: ${(props) => props.opacity};
   span {
     font-size: 20px;
     font-weight: bold;
