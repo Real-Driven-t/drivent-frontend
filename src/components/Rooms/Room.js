@@ -26,8 +26,8 @@ export default function Room({ number, capacity, bookings }) {
       <span>{number}</span>
       <div>
         <div>
-          {createFreeVacancies(freeVacancies, setBackground).map((e) => e)}
-          {createVacanciesOccupied(bookings).map((e) => e)}
+          {createFreeVacancies(freeVacancies, setBackground)}
+          {createVacanciesOccupied(bookings)}
         </div>
       </div>
     </RoomStyle>

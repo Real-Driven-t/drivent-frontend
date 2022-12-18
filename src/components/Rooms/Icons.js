@@ -9,10 +9,12 @@ const VacancyOccupied = styled(IoPerson)`
 const VacancySelected = styled(IoPerson)`
   font-size: 27px;
   color: #ef5c90;
+  cursor: pointer;
 `;
 const VacancyFree = styled(IoPersonOutline)`
   color: black;
   font-size: 27px;
+  cursor: pointer;
 `;
 function Vacancy({ setBackground }) {
   const [isSelected, setIsSelected] = useState(false);

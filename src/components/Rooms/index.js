@@ -1,25 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import Room from './Room';
-import useToken from '../../hooks/useToken';
-import axios from 'axios';
+import useRooms from '../../hooks/api/useRooms';
 
 export default function RoomsOfHotel() {
   const [isThereASelectedRoom, setIsThereASelectedRoom] = useState(false);
-  const [rooms, setRooms] = useState([]);
-  const token = useToken();
-  useEffect(() => {
-    axios.get('http://localhost:4000/rooms/1').then((res) => {
-      setRooms(res.data);
-    });
-  }, []);
-  console.log(rooms);
+  const { rooms } = useRooms(1);
 
   return (
     <ContainerRooms>
       <h1>Ótima pedida! Agora escolha seu quarto</h1>
       <Rooms>
-        {rooms.map((e, index) => (
+        {rooms?.map((e, index) => (
           <Room number={e.name} capacity={e.capacity} bookings={e._count.Booking} key={index} />
         ))}
       </Rooms>
