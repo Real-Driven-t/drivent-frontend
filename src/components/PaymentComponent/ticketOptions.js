@@ -5,6 +5,12 @@ export const OptionName = Object.freeze({
   PESENTIAL: 'Presencial',
 });
 
+export const OptionValues = Object.freeze({
+  WITH_HOTEL: 600,
+  WITHOUT_HOTEL: 250,
+  ONLINE: 100,
+});
+
 export const remoteOptions = [
   {
     name: OptionName.PESENTIAL,
