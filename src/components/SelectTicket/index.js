@@ -5,10 +5,12 @@ import { useState } from 'react';
 import HotelOptions from './HotelOptions';
 import { OptionName, OptionValues } from './ticketOptions';
 import Submit from './Submit';
+import useTicketTypes from '../../hooks/api/useTicketTypes';
 
-export default function PaymentForm() {
+export default function SelectTicket() {
   const [localyName, setLocalyName] = useState('');
   const [withHotel, setWithHotel] = useState('');
+  const { ticketTypes } = useTicketTypes();
 
   const isWithHotel = localyName === OptionName.PESENTIAL && withHotel === OptionName.WITH_HOTEL;
   const isPresential = localyName === OptionName.PESENTIAL && withHotel === OptionName.WITHOUT_HOTEL;
@@ -17,11 +19,11 @@ export default function PaymentForm() {
 
   function renderSubmit() {
     if (isOnline) {
-      return <Submit value={OptionValues.ONLINE} />;
+      return <Submit value={OptionValues.ONLINE} ticketTypes={ticketTypes} />;
     } else if (isPresential) {
-      return <Submit value={OptionValues.WITHOUT_HOTEL} />;
+      return <Submit value={OptionValues.WITHOUT_HOTEL} ticketTypes={ticketTypes} />;
     } else if (isWithHotel) {
-      return <Submit value={OptionValues.WITH_HOTEL} />;
+      return <Submit value={OptionValues.WITH_HOTEL} ticketTypes={ticketTypes} />;
     }
   }
 

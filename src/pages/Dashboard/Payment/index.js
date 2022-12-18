@@ -1,5 +1,5 @@
-import PaymentForm from '../../../components/PaymentComponent';
+import SelectTicket from '../../../components/SelectTicket';
 
 export default function Payment() {
-  return <PaymentForm />;
+  return <SelectTicket />;
 }

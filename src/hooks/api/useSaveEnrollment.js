@@ -9,12 +9,12 @@ export default function useSaveEnrollment() {
   const {
     loading: saveEnrollmentLoading,
     error: saveEnrollmentError,
-    act: saveEnrollment
+    act: saveEnrollment,
   } = useAsync((data) => enrollmentApi.save(data, token), false);
 
   return {
     saveEnrollmentLoading,
     saveEnrollmentError,
-    saveEnrollment
+    saveEnrollment,
   };
 }
