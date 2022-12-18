@@ -35,7 +35,9 @@ export default function Submit({ value, ticketTypes }) {
       <p>
         Fechado! O total ficou em <span>R$ {value}</span>. Agora é só confirmar:
       </p>
-      <Button /* onClick={() => createTicket()} disabled={saveTicketLoading} */>RESERVAR INGRESSO</Button>
+      <Button onClick={() => createTicket()} disabled={saveTicketLoading}>
+        RESERVAR INGRESSO
+      </Button>
     </Wrapper>
   );
 }

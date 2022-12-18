@@ -11,6 +11,7 @@ export default function SelectTicket() {
   const [localyName, setLocalyName] = useState('');
   const [withHotel, setWithHotel] = useState('');
   const { ticketTypes } = useTicketTypes();
+  const [total, setTotal] = useState(0);
 
   const isWithHotel = localyName === OptionName.PESENTIAL && withHotel === OptionName.WITH_HOTEL;
   const isPresential = localyName === OptionName.PESENTIAL && withHotel === OptionName.WITHOUT_HOTEL;
