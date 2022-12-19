@@ -5,6 +5,7 @@ import styled from 'styled-components';
 export default function HotelDescription({ value }) {
   const [roomType, setRoomType] = useState('');
   const [fullyCapacity, setFullyCapacity] = useState(0);
+  const [isSelect, setIsSelect] = useState(false);
 
   useEffect(() => {
     let hash = {};
@@ -36,9 +37,13 @@ export default function HotelDescription({ value }) {
     }
   }, []);
 
+  function changeColor() {
+    setIsSelect(!isSelect);
+  }
+
   return (
     <>
-      <Description>
+      <Description onClick={changeColor} isSelect={isSelect}>
         <img src={value.image} alt="hotel" />
         <p>{value.name}</p>
         <h1>Tipos de acomodação:</h1>
@@ -59,8 +64,9 @@ const Description = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 10px 0;
-  background-color: #ebebeb;
+  background-color: ${(props) => (props.isSelect ? '#FFEED2' : '#F1F1F1')};
   font-family: 'Roboto', sans-serif;
+  cursor: pointer;
   img {
     max-width: 168px;
     height: auto;
