@@ -1,3 +1,4 @@
+import RoomsOfHotel from '../../../components/Rooms';
 import styled from 'styled-components';
 import Typography from '@material-ui/core/Typography';
 import { useEffect, useState } from 'react';
