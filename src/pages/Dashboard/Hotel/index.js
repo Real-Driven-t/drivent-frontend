@@ -1,19 +1,14 @@
 import styled from 'styled-components';
 import Typography from '@material-ui/core/Typography';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import useToken from '../../../hooks/useToken';
 import useHotels from '../../../hooks/api/useHotels';
 import { getUserTicket } from '../../../services/ticketApi';
-import { useState } from 'react';
 import HotelDescription from '../../../components/HotelInformation';
 
 export default function Hotel() {
   const token = useToken();
-  const [content, setContent] = useState(
-    <>
-      <StyledTypography variant="h4">Escolha de hotel e quarto</StyledTypography>
-    </>
-  );
+  const [content, setContent] = useState(<></>);
 
   useEffect(() => {
     getUserTicket(token)
@@ -21,7 +16,6 @@ export default function Hotel() {
         if (resp.status === 'Reserved') {
           setContent(
             <>
-              <StyledTypography variant="h4">Escolha de hotel e quarto</StyledTypography>
               <MsgError>
                 Você precisa ter confirmado pagamento antes
                 <br />
@@ -34,7 +28,6 @@ export default function Hotel() {
         if (resp.TicketType.includesHotel === false) {
           setContent(
             <>
-              <StyledTypography variant="h4">Escolha de hotel e quarto</StyledTypography>
               <MsgError>
                 Sua modalidade de ingresso não inclui hospedagem <br /> Prossiga para a escolha de atividades
               </MsgError>
@@ -42,10 +35,9 @@ export default function Hotel() {
           );
         }
       })
-      .catch((error) => {
+      .catch(() => {
         setContent(
           <>
-            <StyledTypography variant="h4">Escolha de hotel e quarto</StyledTypography>
             <MsgError>
               Você precisa ter confirmado pagamento antes
               <br />
@@ -62,7 +54,6 @@ export default function Hotel() {
     if (hotels.hotels) {
       setContent(
         <>
-          <StyledTypography variant="h4">Escolha de hotel e quarto</StyledTypography>
           <Text>Primeiro, escolha seu hotel</Text>
           <ChooseHotels>
             {hotels.hotels.map((value, index) => (
@@ -74,7 +65,12 @@ export default function Hotel() {
     }
   }, [hotels.hotelsLoading]);
 
-  return content;
+  return (
+    <>
+      <StyledTypography variant="h4">Escolha de hotel e quarto</StyledTypography>
+      {content}
+    </>
+  );
 }
 
 const StyledTypography = styled(Typography)`

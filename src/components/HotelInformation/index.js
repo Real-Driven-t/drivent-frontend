@@ -27,6 +27,10 @@ export default function HotelDescription({ value }) {
       setRoomType('Double e Triple');
     }
 
+    if (hash[1] && hash[3]) {
+      setRoomType('Single e Triple');
+    }
+
     if (hash[1] && hash[2] && hash[3]) {
       setRoomType('Single, Double e Triple');
     }
@@ -37,14 +41,10 @@ export default function HotelDescription({ value }) {
       <Description>
         <img src={value.image} alt="hotel" />
         <p>{value.name}</p>
-        <h1>
-          Tipos de acomodação:
-          <h2>{roomType}</h2>
-        </h1>
-        <h1>
-          Vagas disponíveis:
-          <h2>{fullyCapacity}</h2>
-        </h1>
+        <h1>Tipos de acomodação:</h1>
+        <h2>{roomType}</h2>
+        <h1>Vagas disponíveis:</h1>
+        <h2>{fullyCapacity}</h2>
       </Description>
     </>
   );
@@ -80,13 +80,13 @@ const Description = styled.div`
     font-size: 12px;
     line-height: 14px;
     color: #3c3c3c;
-    margin: 0 0 14px 0;
   }
   h2 {
+    width: 90%;
     font-weight: 400;
     font-size: 12px;
     line-height: 14px;
     color: #3c3c3c;
-    margin: 2px 0 0 0;
+    margin: 2px 0 14px 0;
   }
 `;
