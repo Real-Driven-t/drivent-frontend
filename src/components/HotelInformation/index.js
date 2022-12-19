@@ -2,10 +2,22 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
 
-export default function HotelDescription({ value }) {
+export default function HotelDescription({ value, selectHotel, setSelectHotel }) {
   const [roomType, setRoomType] = useState('');
   const [fullyCapacity, setFullyCapacity] = useState(0);
   const [isSelect, setIsSelect] = useState(false);
+
+  function changeColor() {
+    setSelectHotel(value.id);
+  }
+
+  useEffect(() => {
+    if (selectHotel === value.id) {
+      setIsSelect(true);
+    } else {
+      setIsSelect(false);
+    }
+  }, [selectHotel]);
 
   useEffect(() => {
     let hash = {};
@@ -37,13 +49,9 @@ export default function HotelDescription({ value }) {
     }
   }, []);
 
-  function changeColor() {
-    setIsSelect(!isSelect);
-  }
-
   return (
     <>
-      <Description onClick={changeColor} isSelect={isSelect}>
+      <Description onClick={() => changeColor()} isSelect={isSelect}>
         <img src={value.image} alt="hotel" />
         <p>{value.name}</p>
         <h1>Tipos de acomodação:</h1>

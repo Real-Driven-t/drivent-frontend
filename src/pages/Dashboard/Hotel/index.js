@@ -9,6 +9,7 @@ import HotelDescription from '../../../components/HotelInformation';
 export default function Hotel() {
   const token = useToken();
   const [content, setContent] = useState(<></>);
+  const [selectHotel, setSelectHotel] = useState(0);
 
   useEffect(() => {
     getUserTicket(token)
@@ -57,7 +58,7 @@ export default function Hotel() {
           <Text>Primeiro, escolha seu hotel</Text>
           <ChooseHotels>
             {hotels.hotels.map((value, index) => (
-              <HotelDescription value={value} key={index} />
+              <HotelDescription value={value} key={index} selectHotel={selectHotel} setSelectHotel={setSelectHotel} />
             ))}
           </ChooseHotels>
         </>
