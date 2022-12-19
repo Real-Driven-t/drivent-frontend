@@ -1,5 +1,5 @@
 import RoomsOfHotel from '../../../components/Rooms';
 
 export default function Hotel() {
-  return <RoomsOfHotel />;
+  return 'Hotel: Em breve!';
 }
