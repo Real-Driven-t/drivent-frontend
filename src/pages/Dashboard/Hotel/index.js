@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Typography from '@material-ui/core/Typography';
 import { useEffect } from 'react';
 import useToken from '../../../hooks/useToken';
+import useHotels from '../../../hooks/api/useHotels';
 import { getUserTicket } from '../../../services/ticketApi';
 import { useState } from 'react';
 
@@ -54,6 +55,27 @@ export default function Hotel() {
       });
   }, []);
 
+  const hotels = useHotels();
+
+  useEffect(() => {
+    if (hotels.hotels) {
+      setContent(
+        <>
+          <StyledTypography variant="h4">Escolha de hotel e quarto</StyledTypography>
+          <Text>Primeiro, escolha seu hotel</Text>
+          <ChooseHotels>
+            {hotels.hotels.map((value, index) => (
+              <Description>
+                <img src={value.image} alt="hotel" />
+                <p>{value.name}</p>
+              </Description>
+            ))}
+          </ChooseHotels>
+        </>
+      );
+    }
+  }, [hotels.hotelsLoading]);
+
   return content;
 }
 
@@ -73,4 +95,46 @@ const MsgError = styled.div`
   font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
   font-weight: 400;
   color: #8e8e8e;
+`;
+
+const Text = styled.div`
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 23px;
+  color: #8e8e8e;
+  margin: 0 0 10px 0;
+`;
+
+const ChooseHotels = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const Description = styled.div`
+  width: 196px;
+  height: 264px;
+  border-radius: 10px;
+  margin: 0 20px 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0;
+  background-color: #ebebeb;
+  img {
+    max-width: 168px;
+    height: auto;
+    border-radius: 5px;
+  }
+  p {
+    width: 90%;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px;
+    color: #343434;
+    margin: 5px 0 0 0;
+  }
 `;
