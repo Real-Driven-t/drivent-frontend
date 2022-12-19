@@ -5,6 +5,7 @@ import useToken from '../../../hooks/useToken';
 import useHotels from '../../../hooks/api/useHotels';
 import { getUserTicket } from '../../../services/ticketApi';
 import { useState } from 'react';
+import HotelDescription from '../../../components/HotelInformation';
 
 export default function Hotel() {
   const token = useToken();
@@ -58,6 +59,7 @@ export default function Hotel() {
   const hotels = useHotels();
 
   useEffect(() => {
+    console.log(hotels);
     if (hotels.hotels) {
       setContent(
         <>
@@ -65,10 +67,7 @@ export default function Hotel() {
           <Text>Primeiro, escolha seu hotel</Text>
           <ChooseHotels>
             {hotels.hotels.map((value, index) => (
-              <Description>
-                <img src={value.image} alt="hotel" />
-                <p>{value.name}</p>
-              </Description>
+              <HotelDescription value={value} />
             ))}
           </ChooseHotels>
         </>
@@ -110,31 +109,4 @@ const Text = styled.div`
 const ChooseHotels = styled.div`
   display: flex;
   flex-wrap: wrap;
-`;
-
-const Description = styled.div`
-  width: 196px;
-  height: 264px;
-  border-radius: 10px;
-  margin: 0 20px 10px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px 0;
-  background-color: #ebebeb;
-  img {
-    max-width: 168px;
-    height: auto;
-    border-radius: 5px;
-  }
-  p {
-    width: 90%;
-    font-family: 'Roboto', sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 23px;
-    color: #343434;
-    margin: 5px 0 0 0;
-  }
 `;
