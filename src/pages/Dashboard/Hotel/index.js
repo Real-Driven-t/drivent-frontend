@@ -59,7 +59,6 @@ export default function Hotel() {
   const hotels = useHotels();
 
   useEffect(() => {
-    console.log(hotels);
     if (hotels.hotels) {
       setContent(
         <>
@@ -67,7 +66,7 @@ export default function Hotel() {
           <Text>Primeiro, escolha seu hotel</Text>
           <ChooseHotels>
             {hotels.hotels.map((value, index) => (
-              <HotelDescription value={value} />
+              <HotelDescription value={value} key={index} />
             ))}
           </ChooseHotels>
         </>
