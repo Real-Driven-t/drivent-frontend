@@ -10,14 +10,13 @@ export default function Hotel() {
   const [content, setContent] = useState(
     <>
       <StyledTypography variant="h4">Escolha de hotel e quarto</StyledTypography>
-      Em breve: hotels...
     </>
   );
 
   useEffect(() => {
     getUserTicket(token)
       .then((resp) => {
-        if (resp.data.status === 'Reserved') {
+        if (resp.status === 'Reserved') {
           setContent(
             <>
               <StyledTypography variant="h4">Escolha de hotel e quarto</StyledTypography>
@@ -30,7 +29,7 @@ export default function Hotel() {
           );
         }
 
-        if (resp.data.TicketType.includesHotel === false) {
+        if (resp.TicketType.includesHotel === false) {
           setContent(
             <>
               <StyledTypography variant="h4">Escolha de hotel e quarto</StyledTypography>
@@ -41,7 +40,7 @@ export default function Hotel() {
           );
         }
       })
-      .catch(() => {
+      .catch((error) => {
         setContent(
           <>
             <StyledTypography variant="h4">Escolha de hotel e quarto</StyledTypography>
