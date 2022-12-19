@@ -2,10 +2,15 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
 
+import useRooms from '../../hooks/api/useRooms';
+
 export default function HotelDescription({ value, selectHotel, setSelectHotel }) {
   const [roomType, setRoomType] = useState('');
   const [fullyCapacity, setFullyCapacity] = useState(0);
   const [isSelect, setIsSelect] = useState(false);
+
+  const { rooms } = useRooms(value.id);
+  const totalVancancies = rooms?.reduce((total, room) => total + room.capacity - room._count.Booking, 0);
 
   function changeColor() {
     setSelectHotel(value.id);
@@ -57,7 +62,7 @@ export default function HotelDescription({ value, selectHotel, setSelectHotel })
         <h1>Tipos de acomodação:</h1>
         <h2>{roomType}</h2>
         <h1>Vagas disponíveis:</h1>
-        <h2>{fullyCapacity}</h2>
+        <h2>{totalVancancies}</h2>
       </Description>
     </>
   );
