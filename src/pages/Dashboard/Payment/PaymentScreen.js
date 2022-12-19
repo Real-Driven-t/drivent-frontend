@@ -2,6 +2,7 @@ import TicketInfoContainer from './TicketInfoContainer';
 import { getTicket } from '../../../services/ticketApi';
 import { useEffect, useState } from 'react';
 import useToken from '../../../hooks/useToken';
+import PaymentForm from './CreditCardForm';
 
 export default function PaymentScreen() {
   const token = useToken();
@@ -11,6 +12,7 @@ export default function PaymentScreen() {
   return(
     <>
       {ticket.id ? <TicketInfoContainer ticketType={ticket.TicketType}/> : <h1>Carregando</h1>}
+      <PaymentForm/>
     </>
   );
 }
