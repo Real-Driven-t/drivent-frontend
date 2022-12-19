@@ -1,11 +1,16 @@
 import { useState } from 'react';
-import styled from 'styled-components';
-import { VacancyOccupied, Vacancy } from './Icons';
 
-function createFreeVacancies(number, setBackground) {
+import styled from 'styled-components';
+
+import { VacancyOccupied } from './Icons';
+import Vacancy from './Vacancy';
+
+function createFreeVacancies(number, setBackground, roomdId, handleClick, selectedId) {
   const vacancies = [];
   for (let i = 1; i <= number; i++) {
-    vacancies.push(<Vacancy setBackground={setBackground} />);
+    vacancies.push(
+      <Vacancy setBackground={setBackground} roomId={roomdId} handleClick={handleClick} selectedId={selectedId} />
+    );
   }
   return vacancies;
 }
@@ -17,7 +22,7 @@ function createVacanciesOccupied(number) {
   return vacancies;
 }
 
-export default function Room({ number, capacity, bookings }) {
+export default function Room({ number, capacity, bookings, roomId, handleClick, selectedId }) {
   const [background, setBackground] = useState('white');
   const freeVacancies = capacity - bookings;
 
@@ -26,7 +31,7 @@ export default function Room({ number, capacity, bookings }) {
       <span>{number}</span>
       <div>
         <div>
-          {createFreeVacancies(freeVacancies, setBackground)}
+          {createFreeVacancies(freeVacancies, setBackground, roomId, handleClick, selectedId)}
           {createVacanciesOccupied(bookings)}
         </div>
       </div>

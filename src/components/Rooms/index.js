@@ -1,21 +1,37 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+
 import styled from 'styled-components';
+
 import Room from './Room';
 import useRooms from '../../hooks/api/useRooms';
 
-export default function RoomsOfHotel() {
-  const [isThereASelectedRoom, setIsThereASelectedRoom] = useState(false);
+export default function RoomsOfHotel({ hotelId }) {
+  const [roomIdSelected, setRoomIdSelected] = useState(0);
   const { rooms } = useRooms(1);
+  const selectedId = useRef(0);
+
+  const handleClick = (roomId) => {
+    selectedId.current = roomId;
+    setRoomIdSelected(roomId);
+  };
 
   return (
     <ContainerRooms>
       <h1>Ótima pedida! Agora escolha seu quarto</h1>
       <Rooms>
         {rooms?.map((e, index) => (
-          <Room number={e.name} capacity={e.capacity} bookings={e._count.Booking} key={index} />
+          <Room
+            number={e.name}
+            capacity={e.capacity}
+            bookings={e._count.Booking}
+            roomId={e.id}
+            handleClick={handleClick}
+            selectedId={selectedId.current}
+            key={index}
+          />
         ))}
       </Rooms>
-      <button>RESERVAR QUARTO</button>
+      {roomIdSelected === 0 ? '' : <button>RESERVAR QUARTO</button>}
     </ContainerRooms>
   );
 }
