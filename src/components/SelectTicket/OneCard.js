@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { OptionName } from './ticketOptions';
+import { OptionName, OptionValues } from './ticketOptions';
 
-export default function OneCard({ element, selected, setSelected }) {
+export default function OneCard({ element, selected, setSelected, setTotal }) {
   const [dollarText, setDollarText] = useState('$ ');
   const { name, price } = element;
+  const isFirstCard = name === OptionName.ONLINE || name === OptionName.PESENTIAL;
 
   useEffect(() => {
     if (name === OptionName.WITHOUT_HOTEL || name === OptionName.WITH_HOTEL) {
@@ -13,7 +14,14 @@ export default function OneCard({ element, selected, setSelected }) {
   }, []);
 
   return (
-    <Card selected={selected} name={name} onClick={() => setSelected(name)}>
+    <Card
+      selected={selected}
+      name={name}
+      onClick={() => {
+        setSelected(name);
+        isFirstCard ? setTotal(price) : setTotal(price + OptionValues.WITHOUT_HOTEL);
+      }}
+    >
       <p>{name}</p>
       <span>
         {dollarText}

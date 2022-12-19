@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import OneCard from './OneCard';
 import { useEffect } from 'react';
 
-export default function HotelOptions({ withHotel, setWithHotel }) {
+export default function HotelOptions({ withHotel, setWithHotel, setTotal }) {
   useEffect(() => {
     setWithHotel('');
   }, []);
@@ -13,7 +13,9 @@ export default function HotelOptions({ withHotel, setWithHotel }) {
       <p>Ótimo! Agora escolha sua modalidade de hospedagem</p>
       <div>
         {Op.hotelOptions.map((e, index) => {
-          return <OneCard key={index} element={e} selected={withHotel} setSelected={setWithHotel} />;
+          return (
+            <OneCard key={index} element={e} selected={withHotel} setSelected={setWithHotel} setTotal={setTotal} />
+          );
         })}
       </div>
     </Wrapper>

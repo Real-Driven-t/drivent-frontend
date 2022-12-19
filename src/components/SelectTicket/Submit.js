@@ -4,24 +4,23 @@ import Button from '../Form/Button';
 import { toast } from 'react-toastify';
 import useSaveTicket from '../../hooks/api/useSaveTicket';
 
-export default function Submit({ value, ticketTypes }) {
+export default function Submit({ total, ticketTypes }) {
   const { saveTicketLoading, saveTicket } = useSaveTicket();
   const [ticketTypeId, setTicketTypeId] = useState(0);
 
   useEffect(() => {
     ticketTypes.forEach((e) => {
-      if (e.price === value) {
+      if (e.price === total) {
         setTicketTypeId(e.id);
       }
     });
-  }, []);
-
-  console.log(ticketTypeId);
+  }, [total]);
 
   async function createTicket() {
     const data = {
       ticketTypeId,
     };
+
     try {
       await saveTicket(data);
       toast('Informações salvas com sucesso!');
@@ -33,7 +32,7 @@ export default function Submit({ value, ticketTypes }) {
   return (
     <Wrapper>
       <p>
-        Fechado! O total ficou em <span>R$ {value}</span>. Agora é só confirmar:
+        Fechado! O total ficou em <span>R$ {total}</span>. Agora é só confirmar:
       </p>
       <Button onClick={() => createTicket()} disabled={saveTicketLoading}>
         RESERVAR INGRESSO

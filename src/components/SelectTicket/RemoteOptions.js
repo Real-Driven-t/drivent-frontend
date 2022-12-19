@@ -2,13 +2,15 @@ import * as Op from './ticketOptions';
 import styled from 'styled-components';
 import OneCard from './OneCard';
 
-export default function RemoteOptions({ localyName, setLocalyName }) {
+export default function RemoteOptions({ localyName, setLocalyName, setTotal }) {
   return (
     <Wrapper>
       <p>Primeiro, escolha sua modalidade de ingresso</p>
       <div>
         {Op.remoteOptions.map((e, index) => {
-          return <OneCard key={index} element={e} selected={localyName} setSelected={setLocalyName} />;
+          return (
+            <OneCard key={index} element={e} selected={localyName} setSelected={setLocalyName} setTotal={setTotal} />
+          );
         })}
       </div>
     </Wrapper>
