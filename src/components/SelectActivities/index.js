@@ -24,7 +24,7 @@ export default function SelectActivities() {
         message: 'Você precisa ter selecionar seu ingresso antes de fazer a escolha de atividades',
       });
     }
-  }, [ticket]);
+  }, [ticket, ticketError]);
 
   function verifyPermission() {
     if (ticket.status === TicketStatus.RESERVED) {

@@ -1,54 +1,51 @@
 import RoomsOfHotel from '../Rooms';
 import styled from 'styled-components';
-import Typography from '@material-ui/core/Typography';
 import { useEffect, useState } from 'react';
-import useToken from '../../hooks/useToken';
 import useHotels from '../../hooks/api/useHotels';
-import { getUserTicket } from '../../services/ticketApi';
 import HotelDescription from './HotelDescription';
+import useTicket from '../../hooks/api/useTicket';
+import ErrorWrapper from '../ErrorWrapper';
+
+export const TicketStatus = Object.freeze({
+  PAID: 'PAID',
+  RESERVED: 'RESERVED',
+});
 
 export default function ValidateHotel() {
-  const token = useToken();
+  const { ticket, ticketError } = useTicket();
+  const [authStatus, setAutStatus] = useState({
+    isAllowed: true,
+    message: '',
+  });
+
   const [content, setContent] = useState(<></>);
   const [selectHotel, setSelectHotel] = useState(null);
 
   useEffect(() => {
-    getUserTicket(token)
-      .then((resp) => {
-        if (resp.status === 'Reserved') {
-          setContent(
-            <>
-              <MsgError>
-                Você precisa ter confirmado pagamento antes
-                <br />
-                de fazer a escolha de hospedagem
-              </MsgError>
-            </>
-          );
-        }
-
-        if (resp.TicketType.includesHotel === false) {
-          setContent(
-            <>
-              <MsgError>
-                Sua modalidade de ingresso não inclui hospedagem <br /> Prossiga para a escolha de atividades
-              </MsgError>
-            </>
-          );
-        }
-      })
-      .catch(() => {
-        setContent(
-          <>
-            <MsgError>
-              Você precisa ter confirmado pagamento antes
-              <br />
-              de fazer a escolha de hospedagem
-            </MsgError>
-          </>
-        );
+    if (ticket) verifyPermission();
+    if (ticketError) {
+      setAutStatus({
+        isAllowed: false,
+        message: 'Você precisa ter confirmado pagamento antes de fazer a escolha de hospedagem',
       });
-  }, []);
+    }
+  }, [ticket, ticketError]);
+
+  function verifyPermission() {
+    if (ticket.status === TicketStatus.RESERVED) {
+      setAutStatus({
+        isAllowed: false,
+        message: 'Você precisa ter confirmado pagamento antes de fazer a escolha de hospedagem',
+      });
+    } else if (ticket.TicketType.isRemote === true) {
+      setAutStatus({
+        isAllowed: false,
+        message: 'Sua modalidade de ingresso não inclui hospedagem. Prossiga para a escolha de atividades',
+      });
+    } else {
+      setAutStatus({ isAllowed: true });
+    }
+  }
 
   const hotels = useHotels();
 
@@ -68,31 +65,8 @@ export default function ValidateHotel() {
     }
   }, [hotels.hotelsLoading, selectHotel]);
 
-  return (
-    <>
-      <StyledTypography variant="h4">Escolha de hotel e quarto</StyledTypography>
-      {content}
-    </>
-  );
+  return <>{!authStatus.isAllowed ? <ErrorWrapper>{authStatus.message}</ErrorWrapper> : content}</>;
 }
-
-const StyledTypography = styled(Typography)`
-  margin-bottom: 20px !important;
-`;
-
-const MsgError = styled.div`
-  width: 100%;
-  height: 90%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box;
-  text-align: center;
-  font-size: 20px;
-  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-  font-weight: 400;
-  color: #8e8e8e;
-`;
 
 const Text = styled.div`
   font-family: 'Roboto', sans-serif;
