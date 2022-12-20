@@ -7,13 +7,14 @@ import SucessScreen from './SucessScreen';
 
 export default function PaymentScreen() {
   const token = useToken();
+  const [reload, setReload] = useState(0);
   console.log(token);
   const [ticket, setTicket] = useState({});
-  useEffect(() =>  {getTicket(token).then(p => setTicket(p));}, []);
+  useEffect(() =>  {getTicket(token).then(p => setTicket(p));}, [reload]);
   return(
     <>
       {ticket.id ? <TicketInfoContainer ticketType={ticket.TicketType}/> : <h1>Carregando</h1>}
-      {ticket.status === 'PAID' ? <SucessScreen/> : <PaymentForm/>}
+      {ticket.status === 'PAID' ? <SucessScreen/> : <PaymentForm token={token} ticketId = {ticket.id} setReload={setReload} reload={reload}/>}
     </>
   );
 }

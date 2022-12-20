@@ -1,7 +1,9 @@
+import dayjs from 'dayjs';
 import React from 'react';
 import Cards from 'react-credit-cards';
 import 'react-credit-cards/es/styles-compiled.css';
 import styled from 'styled-components';
+import { postPayment } from '../../../services/paymentApi';
  
 export default class PaymentForm extends React.Component {
   state = {
@@ -14,7 +16,19 @@ export default class PaymentForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
+    const { token, ticketId, setReload, reload } =  this.props;
+    const body = {
+      ticketId,
+      cardData: {
+        issuer: 'Visa',
+        number: this.state.number,
+        name: this.state.name,
+        expirationDate: dayjs(this.state.expiry).add(1, 'day').toISOString(),
+        cvv: this.state.cvc
+      },
+    };
+    console.log(body);
+    postPayment(token, body).then(setReload(reload => reload + 1));
   }
 
   handleInputFocus = (e) => {
@@ -38,7 +52,7 @@ export default class PaymentForm extends React.Component {
           name={this.state.name}
           number={this.state.number}
         />
-        <CreditCardForm onSubmit={(e) => this.handleSubmit(e)}>
+        <CreditCardForm onSubmit={this.handleSubmit}>
         	<input
             type="tel"
             name="number"
