@@ -7,7 +7,7 @@ import HotelsRender from './HotelsRender';
 
 export default function SelectHotels() {
   const [authStatus, setAutStatus] = useState({
-    isAllowed: true,
+    isAllowed: false,
     message: '',
   });
 
