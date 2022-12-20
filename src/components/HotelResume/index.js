@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import styled from 'styled-components';
 import Typography from '@material-ui/core/Typography';
 
@@ -12,11 +10,18 @@ export default function HotelResume() {
     const capacity = booking?.Room.capacity;
     if (capacity === 1) {
       return 'single';
-    } else if (capacity === 2) {
-      return 'Double';
-    } else {
-      return 'Triple';
     }
+    if (capacity === 2) {
+      return 'Double';
+    }
+    return 'Triple';
+  };
+  const peopleInThisRoom = () => {
+    const bookings = booking?.totalBookings.length;
+    if (bookings === 1) {
+      return 'Somente você';
+    }
+    return `Você e mais ${booking - 1}`;
   };
   console.log(booking);
   return (
@@ -34,7 +39,7 @@ export default function HotelResume() {
             {booking.Room.name} ({getCapacity()})
           </h2>
           <h1>Pessoas no seu quarto</h1>
-          <h2>Você e mais 1</h2>
+          <h2>{peopleInThisRoom()}</h2>
         </Description>
       ) : (
         ''
