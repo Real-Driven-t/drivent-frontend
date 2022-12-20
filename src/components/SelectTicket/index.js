@@ -1,5 +1,3 @@
-import styled from 'styled-components';
-import { Typography } from '@material-ui/core';
 import RemoteOptions from './RemoteOptions';
 import { useState } from 'react';
 import HotelOptions from './HotelOptions';
@@ -19,14 +17,9 @@ export default function SelectTicket() {
 
   return (
     <>
-      <StyledTypography variant="h4">Suas Informações</StyledTypography>
       <RemoteOptions setTotal={setTotal} localyName={localyName} setLocalyName={setLocalyName} />
       {isPresential ? <HotelOptions setTotal={setTotal} withHotel={withHotel} setWithHotel={setWithHotel} /> : <></>}
       {isAllChosed ? <Submit total={total} ticketTypes={ticketTypes} /> : <></>}
     </>
   );
 }
-
-const StyledTypography = styled(Typography)`
-  margin-bottom: 37px !important;
-`;

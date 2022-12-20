@@ -1,5 +1,5 @@
-import SelectTicket from '../../../components/SelectTicket';
+import PaymentScreen from '../../../components/Payment/index';
 
 export default function Payment() {
-  return <SelectTicket />;
+  return <PaymentScreen />;
 }
