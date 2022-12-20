@@ -1,11 +1,8 @@
 import styled from 'styled-components';
-import Typography from '@material-ui/core/Typography';
 
 import Button from '../Form/Button';
-import useBooking from '../../hooks/api/useBooking';
 
-export default function HotelResume() {
-  const { booking } = useBooking();
+export default function HotelBooking({ booking }) {
   const getCapacity = () => {
     const capacity = booking?.Room.capacity;
     if (capacity === 1) {
@@ -25,7 +22,6 @@ export default function HotelResume() {
   };
   return (
     <>
-      <Typography variant="h4">Escolha de hotel e quarto</Typography>
       <h2 style={{ color: '#8E8E8E', margin: '36px 0 14px 0', fontFamily: 'Roboto, sans-serif' }}>
         Você já escolheu seu quarto:
       </h2>

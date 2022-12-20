@@ -1,11 +1,14 @@
 import ValidateHotel from './ValidateHotels';
-
-import { useState } from 'react';
-import styled from 'styled-components';
-import Typography from '@material-ui/core/Typography';
 import HotelsRender from './HotelsRender';
 
+import { useState } from 'react';
+import useBooking from '../../hooks/api/useBooking';
+import styled from 'styled-components';
+import Typography from '@material-ui/core/Typography';
+import HotelBooking from './HotelBooking';
+
 export default function SelectHotels() {
+  const { booking } = useBooking();
   const [authStatus, setAutStatus] = useState({
     isAllowed: false,
     message: '',
@@ -14,7 +17,11 @@ export default function SelectHotels() {
   return (
     <>
       <StyledTypography variant="h4">Escolha de hotel e quarto</StyledTypography>
-      <ValidateHotel authStatus={authStatus} setAutStatus={setAutStatus} />
+      {booking ? (
+        <HotelBooking booking={booking} />
+      ) : (
+        <ValidateHotel authStatus={authStatus} setAutStatus={setAutStatus} />
+      )}
       {authStatus.isAllowed ? <HotelsRender /> : <></>}
     </>
   );
