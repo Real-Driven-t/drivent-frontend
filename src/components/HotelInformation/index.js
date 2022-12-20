@@ -59,7 +59,6 @@ export default function HotelDescription({ value, selectHotel, setSelectHotel })
       <Description
         onClick={() => {
           changeColor();
-          setIsSelect(true);
         }}
         isSelect={isSelect}
       >

@@ -7,7 +7,6 @@ import useRooms from '../../hooks/api/useRooms';
 
 export default function RoomsOfHotel({ hotelId }) {
   const [roomIdSelected, setRoomIdSelected] = useState(0);
-  console.log(`veio o id: ${hotelId}`);
   const { rooms } = useRooms(hotelId);
   const selectedId = useRef(0);
 
