@@ -10,7 +10,8 @@ import HotelDescription from '../../../components/HotelInformation';
 export default function Hotel() {
   const token = useToken();
   const [content, setContent] = useState(<></>);
-  const [selectHotel, setSelectHotel] = useState(0);
+  const [selectHotel, setSelectHotel] = useState(null);
+
   useEffect(() => {
     getUserTicket(token)
       .then((resp) => {
@@ -61,10 +62,11 @@ export default function Hotel() {
               <HotelDescription value={value} key={index} selectHotel={selectHotel} setSelectHotel={setSelectHotel} />
             ))}
           </ChooseHotels>
+          {!selectHotel ? '' : <RoomsOfHotel hotelId={selectHotel} />}
         </>
       );
     }
-  }, [hotels.hotelsLoading]);
+  }, [hotels.hotelsLoading, selectHotel]);
 
   return (
     <>

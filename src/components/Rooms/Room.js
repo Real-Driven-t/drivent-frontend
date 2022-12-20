@@ -9,7 +9,13 @@ function createFreeVacancies(number, setBackground, roomdId, handleClick, select
   const vacancies = [];
   for (let i = 1; i <= number; i++) {
     vacancies.push(
-      <Vacancy setBackground={setBackground} roomId={roomdId} handleClick={handleClick} selectedId={selectedId} />
+      <Vacancy
+        setBackground={setBackground}
+        roomId={roomdId}
+        handleClick={handleClick}
+        selectedId={selectedId}
+        key={i}
+      />
     );
   }
   return vacancies;
@@ -17,7 +23,7 @@ function createFreeVacancies(number, setBackground, roomdId, handleClick, select
 function createVacanciesOccupied(number) {
   const vacancies = [];
   for (let i = 1; i <= number; i++) {
-    vacancies.push(<VacancyOccupied />);
+    vacancies.push(<VacancyOccupied key={i} />);
   }
   return vacancies;
 }

@@ -38,6 +38,7 @@ export default function RoomsOfHotel({ hotelId }) {
 
 const ContainerRooms = styled.div`
   font-family: 'Roboto', sans-serif;
+  margin-top: 50px;
   h1 {
     font-size: 20px;
     color: #8e8e8e;
