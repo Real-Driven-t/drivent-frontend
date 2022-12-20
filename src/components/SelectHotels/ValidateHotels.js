@@ -1,19 +1,14 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import useTicket from '../../hooks/api/useTicket';
 import ErrorWrapper from '../ErrorWrapper';
-import HotelsRender from './Hotels';
 
 export const TicketStatus = Object.freeze({
   PAID: 'PAID',
   RESERVED: 'RESERVED',
 });
 
-export default function ValidateHotel() {
+export default function ValidateHotel({ authStatus, setAutStatus }) {
   const { ticket, ticketError } = useTicket();
-  const [authStatus, setAutStatus] = useState({
-    isAllowed: true,
-    message: '',
-  });
 
   useEffect(() => {
     if (ticket) verifyPermission();
@@ -41,5 +36,5 @@ export default function ValidateHotel() {
     }
   }
 
-  return <>{!authStatus.isAllowed ? <ErrorWrapper>{authStatus.message}</ErrorWrapper> : <HotelsRender />}</>;
+  return <>{!authStatus.isAllowed ? <ErrorWrapper>{authStatus.message}</ErrorWrapper> : <></>}</>;
 }
