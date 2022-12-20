@@ -1,3 +1,5 @@
+import SelectActivities from '../../../components/SelectActivities';
+
 export default function Activities() {
-  return 'Atividades: Em breve!';
+  return <SelectActivities />;
 }

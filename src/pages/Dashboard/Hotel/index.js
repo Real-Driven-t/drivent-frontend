@@ -11,7 +11,6 @@ export default function Hotel() {
   const token = useToken();
   const [content, setContent] = useState(<></>);
   const [selectHotel, setSelectHotel] = useState(0);
-
   useEffect(() => {
     getUserTicket(token)
       .then((resp) => {
