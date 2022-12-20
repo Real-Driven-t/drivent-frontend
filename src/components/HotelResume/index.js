@@ -23,7 +23,6 @@ export default function HotelResume() {
     }
     return `Você e mais ${booking - 1}`;
   };
-  console.log(booking);
   return (
     <>
       <Typography variant="h4">Escolha de hotel e quarto</Typography>

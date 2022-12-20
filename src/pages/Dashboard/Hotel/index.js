@@ -6,7 +6,6 @@ import useToken from '../../../hooks/useToken';
 import useHotels from '../../../hooks/api/useHotels';
 import { getUserTicket } from '../../../services/ticketApi';
 import HotelDescription from '../../../components/HotelInformation';
-import HotelResume from '../../../components/HotelResume';
 
 export default function Hotel() {
   const token = useToken();
@@ -73,7 +72,6 @@ export default function Hotel() {
     <>
       <StyledTypography variant="h4">Escolha de hotel e quarto</StyledTypography>
       {content}
-      <HotelResume />
     </>
   );
 }
