@@ -7,6 +7,7 @@ import useRooms from '../../hooks/api/useRooms';
 
 export default function RoomsOfHotel({ hotelId }) {
   const [roomIdSelected, setRoomIdSelected] = useState(0);
+  console.log(`veio o id: ${hotelId}`);
   const { rooms } = useRooms(hotelId);
   const selectedId = useRef(0);
 
@@ -38,6 +39,7 @@ export default function RoomsOfHotel({ hotelId }) {
 
 const ContainerRooms = styled.div`
   font-family: 'Roboto', sans-serif;
+  margin-top: 50px;
   h1 {
     font-size: 20px;
     color: #8e8e8e;

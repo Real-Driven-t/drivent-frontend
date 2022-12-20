@@ -62,10 +62,11 @@ export default function Hotel() {
               <HotelDescription value={value} key={index} selectHotel={selectHotel} setSelectHotel={setSelectHotel} />
             ))}
           </ChooseHotels>
+          {selectHotel ? <RoomsOfHotel hotelId={selectHotel} /> : ''}
         </>
       );
     }
-  }, [hotels.hotelsLoading]);
+  }, [hotels.hotelsLoading, selectHotel]);
 
   return (
     <>

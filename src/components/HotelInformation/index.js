@@ -56,7 +56,13 @@ export default function HotelDescription({ value, selectHotel, setSelectHotel })
 
   return (
     <>
-      <Description onClick={() => changeColor()} isSelect={isSelect}>
+      <Description
+        onClick={() => {
+          changeColor();
+          setIsSelect(true);
+        }}
+        isSelect={isSelect}
+      >
         <img src={value.image} alt="hotel" />
         <p>{value.name}</p>
         <h1>Tipos de acomodação:</h1>
