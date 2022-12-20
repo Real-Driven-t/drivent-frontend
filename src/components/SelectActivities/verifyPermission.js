@@ -3,9 +3,9 @@ export const TicketStatus = Object.freeze({
   RESERVED: 'RESERVED',
 });
 
-export async function verifyPermission({ ticket, setAutStatus, ticketError }) {
+export async function verifyPermission({ ticket, setAuthStatus, ticketError }) {
   if (ticketError) {
-    setAutStatus({
+    setAuthStatus({
       isAllowed: false,
       message: 'Você precisa ter selecionar seu ingresso antes de fazer a escolha de atividades',
     });
@@ -13,7 +13,7 @@ export async function verifyPermission({ ticket, setAutStatus, ticketError }) {
   }
 
   if (ticket.status === TicketStatus.RESERVED) {
-    setAutStatus({
+    setAuthStatus({
       isAllowed: false,
       message: 'Você precisa ter confirmado pagamento antes de fazer a escolha de atividades',
     });
@@ -21,7 +21,7 @@ export async function verifyPermission({ ticket, setAutStatus, ticketError }) {
   }
 
   if (ticket.TicketType.isRemote === true) {
-    setAutStatus({
+    setAuthStatus({
       isAllowed: false,
       message: 'Sua modalidade de ingresso não necessita escolher atividade. Você terá acesso a todas as atividades.',
     });

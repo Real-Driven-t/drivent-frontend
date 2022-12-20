@@ -7,13 +7,13 @@ import { verifyPermission } from './verifyPermission';
 
 export default function SelectActivities() {
   const { ticket, ticketError } = useTicket();
-  const [authStatus, setAutStatus] = useState({
+  const [authStatus, setAuthStatus] = useState({
     isAllowed: true,
     message: '',
   });
 
   useEffect(() => {
-    if (ticket || ticketError) verifyPermission({ ticket, setAutStatus, ticketError });
+    if (ticket || ticketError) verifyPermission({ ticket, setAuthStatus, ticketError });
   }, [ticket, ticketError]);
 
   return (
