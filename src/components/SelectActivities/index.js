@@ -45,7 +45,7 @@ export default function SelectActivities() {
   return (
     <>
       <Typography variant="h4">Escolha de atividades</Typography>
-      {!authStatus.isAllowed ? <ErrorWrapper>{authStatus.message}</ErrorWrapper> : <>'Atividades: Em breve!'</>}
+      {!authStatus.isAllowed ? <ErrorWrapper>{authStatus.message}</ErrorWrapper> : 'Atividades: Em breve!'}
     </>
   );
 }
