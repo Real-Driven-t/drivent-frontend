@@ -15,7 +15,7 @@ export default function Hotel() {
   useEffect(() => {
     getUserTicket(token)
       .then((resp) => {
-        if (resp.status === 'Reserved') {
+        if (resp.status === 'RESERVED') {
           setContent(
             <>
               <MsgError>
