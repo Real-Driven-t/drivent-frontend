@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
 import Button from '../Form/Button';
-import HotelsRender from './HotelsRender';
 
-export default function HotelBooking({ booking, isChangeRoom, setIsChangeRoom }) {
+export default function HotelBooking({ booking, isChangeRoom, setIsChangeRoom, setAutStatus }) {
   const getCapacity = () => {
     const capacity = booking?.Room.capacity;
     if (capacity === 1) {
@@ -25,12 +24,13 @@ export default function HotelBooking({ booking, isChangeRoom, setIsChangeRoom })
 
   function changeRoom() {
     setIsChangeRoom(true);
+    setAutStatus(false);
   }
 
   return (
     <>
       {isChangeRoom ? (
-        <HotelsRender />
+        <></>
       ) : (
         <>
           <h2 style={{ color: '#8E8E8E', margin: '36px 0 14px 0', fontFamily: 'Roboto, sans-serif' }}>
@@ -59,7 +59,7 @@ export default function HotelBooking({ booking, isChangeRoom, setIsChangeRoom })
 
 const Description = styled.div`
   width: 196px;
-  height: 264px;
+  min-height: 264px;
   border-radius: 10px;
   margin: 0 20px 10px 0;
   display: flex;
@@ -88,6 +88,7 @@ const Description = styled.div`
     font-size: 12px;
     line-height: 14px;
     color: #3c3c3c;
+    margin: 14px 0 2px 0;
   }
   h2 {
     width: 90%;
@@ -95,6 +96,5 @@ const Description = styled.div`
     font-size: 12px;
     line-height: 14px;
     color: #3c3c3c;
-    margin: 2px 0 14px 0;
   }
 `;
