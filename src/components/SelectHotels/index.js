@@ -36,7 +36,7 @@ export default function SelectHotels() {
         <ValidateHotel authStatus={authStatus} setAutStatus={setAutStatus} />
       )}
       {authStatus.isAllowed ? <HotelsRender /> : <></>}
-      {isChangeRoom ? <HotelsRender /> : <></>}
+      {isChangeRoom ? <HotelsRender bookingId={booking.id} /> : <></>}
     </>
   );
 }
