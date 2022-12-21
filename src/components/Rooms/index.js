@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import styled from 'styled-components';
 
@@ -8,7 +8,8 @@ import useCreateBooking from '../../hooks/api/useCreateBooking';
 
 export default function RoomsOfHotel({ hotelId }) {
   const [roomIdSelected, setRoomIdSelected] = useState(0);
-  const { rooms } = useRooms(hotelId);
+  const [rooms, setRooms] = useState([]);
+  const { getRooms } = useRooms(hotelId);
   const { createBooking } = useCreateBooking(roomIdSelected);
   const selectedId = useRef(0);
 
@@ -16,6 +17,10 @@ export default function RoomsOfHotel({ hotelId }) {
     selectedId.current = roomId;
     setRoomIdSelected(roomId);
   };
+
+  useEffect(() => {
+    getRooms().then((res) => setRooms(res));
+  }, [hotelId]);
 
   return (
     <ContainerRooms>
