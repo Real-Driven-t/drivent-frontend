@@ -28,11 +28,11 @@ export default function RoomsOfHotel({ hotelId, bookingId, setIsChangeRoom }) {
   async function upsertBooking() {
     try {
       if (bookingId) {
-        await putBooking(roomIdSelected, bookingId);
+        const { UpdateBookingError } = await putBooking(roomIdSelected, bookingId);
         setIsChangeRoom(false);
         return toast('Informações alteradas com sucesso!');
       }
-      await createBooking(roomIdSelected);
+      const { bookingError } = await createBooking(roomIdSelected);
       return toast('Informações salvas com sucesso!');
     } catch (error) {
       toast('Não foi possível salvar suas informações!');
