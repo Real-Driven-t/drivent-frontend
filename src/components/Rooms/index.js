@@ -8,7 +8,7 @@ import useCreateBooking from '../../hooks/api/useCreateBooking';
 import useUpdateBooking from '../../hooks/api/useUpdateBooking';
 import { toast } from 'react-toastify';
 
-export default function RoomsOfHotel({ hotelId, bookingId }) {
+export default function RoomsOfHotel({ hotelId, bookingId, setIsChangeRoom }) {
   const [roomIdSelected, setRoomIdSelected] = useState(0);
   const [rooms, setRooms] = useState([]);
   const { putBooking } = useUpdateBooking();
@@ -29,14 +29,13 @@ export default function RoomsOfHotel({ hotelId, bookingId }) {
     try {
       if (bookingId) {
         await putBooking(roomIdSelected, bookingId);
+        setIsChangeRoom(false);
         return toast('Informações alteradas com sucesso!');
       }
       await createBooking(roomIdSelected);
-      toast('Informações salvas com sucesso!');
-      return;
+      return toast('Informações salvas com sucesso!');
     } catch (error) {
       toast('Não foi possível salvar suas informações!');
-      return;
     }
   }
 
