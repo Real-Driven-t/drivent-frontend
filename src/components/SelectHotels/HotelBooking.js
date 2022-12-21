@@ -20,7 +20,7 @@ export default function HotelBooking({ booking, isChangeRoom, setIsChangeRoom })
     if (bookings === 1) {
       return 'Somente você';
     }
-    return `Você e mais ${booking - 1}`;
+    return `Você e mais ${bookings - 1}`;
   };
 
   function changeRoom() {

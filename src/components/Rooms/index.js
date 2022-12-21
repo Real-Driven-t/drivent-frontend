@@ -1,19 +1,26 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import styled from 'styled-components';
 
 import Room from './Room';
 import useRooms from '../../hooks/api/useRooms';
+import useCreateBooking from '../../hooks/api/useCreateBooking';
 
 export default function RoomsOfHotel({ hotelId }) {
   const [roomIdSelected, setRoomIdSelected] = useState(0);
-  const { rooms } = useRooms(hotelId);
+  const [rooms, setRooms] = useState([]);
+  const { getRooms } = useRooms(hotelId);
+  const { createBooking } = useCreateBooking(roomIdSelected);
   const selectedId = useRef(0);
 
   const handleClick = (roomId) => {
     selectedId.current = roomId;
     setRoomIdSelected(roomId);
   };
+
+  useEffect(() => {
+    getRooms().then((res) => setRooms(res));
+  }, [hotelId]);
 
   return (
     <ContainerRooms>
@@ -31,7 +38,10 @@ export default function RoomsOfHotel({ hotelId }) {
           />
         ))}
       </Rooms>
-      {roomIdSelected === 0 ? '' : <button>RESERVAR QUARTO</button>}
+      {
+        //prettier-ignore
+        roomIdSelected === 0 ? '' : <button onClick={async() => await createBooking()}>RESERVAR QUARTO</button>
+      }
     </ContainerRooms>
   );
 }
