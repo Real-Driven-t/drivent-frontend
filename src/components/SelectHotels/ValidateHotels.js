@@ -15,7 +15,7 @@ export default function ValidateHotel({ authStatus, setAutStatus }) {
     if (ticketError) {
       setAutStatus({
         isAllowed: false,
-        message: 'Você precisa ter confirmado pagamento antes de fazer a escolha de hospedagem',
+        message: 'Você precisa ter selecionado seu ingresso antes de fazer a escolha de hospedagem',
       });
     }
   }, [ticket, ticketError]);
