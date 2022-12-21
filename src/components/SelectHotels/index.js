@@ -9,6 +9,7 @@ import HotelBooking from './HotelBooking';
 
 export default function SelectHotels() {
   const { booking } = useBooking();
+  const [isChangeRoom, setIsChangeRoom] = useState(false);
   const [authStatus, setAutStatus] = useState({
     isAllowed: false,
     message: '',
@@ -18,7 +19,7 @@ export default function SelectHotels() {
     <>
       <StyledTypography variant="h4">Escolha de hotel e quarto</StyledTypography>
       {booking ? (
-        <HotelBooking booking={booking} />
+        <HotelBooking booking={booking} isChangeRoom={isChangeRoom} setIsChangeRoom={setIsChangeRoom} />
       ) : (
         <ValidateHotel authStatus={authStatus} setAutStatus={setAutStatus} />
       )}

@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
 import Button from '../Form/Button';
+import HotelsRender from './HotelsRender';
 
-export default function HotelBooking({ booking }) {
+export default function HotelBooking({ booking, isChangeRoom, setIsChangeRoom }) {
   const getCapacity = () => {
     const capacity = booking?.Room.capacity;
     if (capacity === 1) {
@@ -13,6 +14,7 @@ export default function HotelBooking({ booking }) {
     }
     return 'Triple';
   };
+
   const peopleInThisRoom = () => {
     const bookings = booking?.totalBookings.length;
     if (bookings === 1) {
@@ -20,26 +22,37 @@ export default function HotelBooking({ booking }) {
     }
     return `Você e mais ${booking - 1}`;
   };
+
+  function changeRoom() {
+    setIsChangeRoom(true);
+  }
+
   return (
     <>
-      <h2 style={{ color: '#8E8E8E', margin: '36px 0 14px 0', fontFamily: 'Roboto, sans-serif' }}>
-        Você já escolheu seu quarto:
-      </h2>
-      {booking ? (
-        <Description>
-          <img src={booking.Room.Hotel.image} alt="hotel" />
-          <p>{booking.Room.Hotel.name}</p>
-          <h1>Quarto reservado</h1>
-          <h2>
-            {booking.Room.name} ({getCapacity()})
-          </h2>
-          <h1>Pessoas no seu quarto</h1>
-          <h2>{peopleInThisRoom()}</h2>
-        </Description>
+      {isChangeRoom ? (
+        <HotelsRender />
       ) : (
-        ''
+        <>
+          <h2 style={{ color: '#8E8E8E', margin: '36px 0 14px 0', fontFamily: 'Roboto, sans-serif' }}>
+            Você já escolheu seu quarto:
+          </h2>
+          {booking ? (
+            <Description>
+              <img src={booking.Room.Hotel.image} alt="hotel" />
+              <p>{booking.Room.Hotel.name}</p>
+              <h1>Quarto reservado</h1>
+              <h2>
+                {booking.Room.name} ({getCapacity()})
+              </h2>
+              <h1>Pessoas no seu quarto</h1>
+              <h2>{peopleInThisRoom()}</h2>
+            </Description>
+          ) : (
+            ''
+          )}
+          <Button onClick={changeRoom}>TROCAR DE QUARTO</Button>
+        </>
       )}
-      <Button>TROCAR DE QUARTO</Button>
     </>
   );
 }
