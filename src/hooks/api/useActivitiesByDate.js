@@ -11,7 +11,7 @@ export default function useActivitiesByDay() {
     loading: activitiesByDayLoading,
     error: activitiesByDayError,
     act: getActivitiesByDay,
-  } = useAsync((data) => activityApi.getActivitiestWithPlace(data, token));
+  } = useAsync((day) => activityApi.getActivitiestWithPlace(token, day), false);
 
   return {
     activitiesByDay,

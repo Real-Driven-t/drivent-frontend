@@ -1,26 +1,17 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import useActivitiesByDay from '../../hooks/api/useActivitiesByDate';
-import useToken from '../../hooks/useToken';
-import { getActivitiestWithPlace } from '../../services/activityApi';
 
 export default function Locals() {
   const date = new Date();
   date.setHours(0, 0, 0, 0);
   const body = { day: date.toISOString() };
-  const token = useToken();
+  const [activities, setActivities] = useState([]);
+  const { getActivitiesByDay } = useActivitiesByDay(body);
 
-  const [data, setData] = useState();
-
-  useEffect(() => {
-    console.log(token);
-
-    getActivitiestWithPlace(body, token)
-      .then((e) => setData(e.data))
-      .catch((e) => setData(e.data));
-  }, [token]);
-
-  console.log(data);
+  /*  useEffect(() => {
+    getActivitiesByDay().then((res) => setActivities(res));
+  }, [body]); */
 
   return <Wrapper> 'Carregando...' </Wrapper>;
 }
