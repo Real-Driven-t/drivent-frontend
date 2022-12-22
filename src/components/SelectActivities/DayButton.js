@@ -38,6 +38,11 @@ const Day = styled.div`
 `;
 
 const Place = styled.div`
+  width: 100%;
   display: flex;
   align-items: center;
+
+  @media only screen and (max-width: 748px) {
+    flex-direction: column;
+  }
 `;
