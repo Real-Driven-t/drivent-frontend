@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import useTicket from '../../hooks/api/useTicket';
 import { verifyPermission } from './verifyPermission';
+import Locals from './Locals.';
 
 export default function SelectActivities() {
   const { ticket, ticketError } = useTicket();
@@ -12,9 +13,6 @@ export default function SelectActivities() {
     message: '',
   });
 
-  const date = new Date();
-  date.setHours(0, 0, 0, 0);
-
   useEffect(() => {
     if (ticket || ticketError) verifyPermission({ ticket, setAuthStatus, ticketError });
   }, [ticket, ticketError]);
@@ -22,7 +20,7 @@ export default function SelectActivities() {
   return (
     <>
       <Typography variant="h4">Escolha de atividades</Typography>
-      {!authStatus.isAllowed ? <ErrorWrapper>{authStatus.message}</ErrorWrapper> : 'Atividades: Em breve!'}
+      {!authStatus.isAllowed ? <ErrorWrapper>{authStatus.message}</ErrorWrapper> : <Locals />}
     </>
   );
 }
