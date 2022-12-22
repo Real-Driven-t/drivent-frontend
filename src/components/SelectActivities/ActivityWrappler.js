@@ -1,7 +1,14 @@
 import styled from 'styled-components';
 import { IoMdExit, IoMdCloseCircle } from 'react-icons/io';
+import { useEffect, useState } from 'react';
 
 export default function ActivityWrappler({ info }) {
+  const [diffHours, setDiffHours] = useState(1);
+
+  useEffect(() => {
+    setDiffHours((new Date(info.duration) - new Date(info.start)) / (1000 * 60 * 60));
+  }, []);
+
   function duration() {
     const startDate = new Date(info.start);
     const startHour = startDate.toTimeString();
@@ -13,7 +20,7 @@ export default function ActivityWrappler({ info }) {
   }
 
   return (
-    <Container>
+    <Container diff={diffHours}>
       <Title>
         {info.name}
         <h1>{duration()}</h1>
@@ -36,8 +43,8 @@ export default function ActivityWrappler({ info }) {
 }
 
 const Container = styled.div`
-  width: 265px;
-  height: 79px;
+  max-width: 265px;
+  height: ${(props) => props.diff * 80 + 'px'};
   left: 350px;
   top: 415px;
   background: #f1f1f1;
@@ -47,6 +54,10 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   box-sizing: border-box;
+
+  @media only screen and (max-width: 748px) {
+    max-width: 100%;
+  }
 `;
 
 const Title = styled.div`
