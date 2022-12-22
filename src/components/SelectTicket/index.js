@@ -5,7 +5,7 @@ import { OptionName } from './ticketOptions';
 import Submit from './Submit';
 import useTicketTypes from '../../hooks/api/useTicketTypes';
 
-export default function SelectTicket() {
+export default function SelectTicket({ setReload, reload }) {
   const [localyName, setLocalyName] = useState('');
   const [withHotel, setWithHotel] = useState('');
   const { ticketTypes } = useTicketTypes();
@@ -19,7 +19,7 @@ export default function SelectTicket() {
     <>
       <RemoteOptions setTotal={setTotal} localyName={localyName} setLocalyName={setLocalyName} />
       {isPresential ? <HotelOptions setTotal={setTotal} withHotel={withHotel} setWithHotel={setWithHotel} /> : <></>}
-      {isAllChosed ? <Submit total={total} ticketTypes={ticketTypes} /> : <></>}
+      {isAllChosed ? <Submit total={total} ticketTypes={ticketTypes} setReload={setReload} reload={reload}/> : <></>}
     </>
   );
 }

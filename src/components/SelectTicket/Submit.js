@@ -4,7 +4,7 @@ import Button from '../Form/Button';
 import { toast } from 'react-toastify';
 import useSaveTicket from '../../hooks/api/useSaveTicket';
 
-export default function Submit({ total, ticketTypes }) {
+export default function Submit({ total, ticketTypes, setReload }) {
   const { saveTicketLoading, saveTicket } = useSaveTicket();
   const [ticketTypeId, setTicketTypeId] = useState(0);
 
@@ -24,6 +24,7 @@ export default function Submit({ total, ticketTypes }) {
     try {
       await saveTicket(data);
       toast('Informações salvas com sucesso!');
+      setReload(reload => reload + 1);
     } catch (err) {
       toast('Não foi possível salvar suas informações!');
     }

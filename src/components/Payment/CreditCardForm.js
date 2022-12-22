@@ -3,8 +3,7 @@ import React from 'react';
 import Cards from 'react-credit-cards';
 import 'react-credit-cards/es/styles-compiled.css';
 import styled from 'styled-components';
-import useToken from '../../hooks/useToken';
-import { postPayment } from '../../services/paymentApi';
+import { toast } from 'react-toastify';
  
 export default class PaymentForm extends React.Component {
   state = {
@@ -15,22 +14,27 @@ export default class PaymentForm extends React.Component {
     number: '',
   };
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    const { token, ticketId, setReload, reload } =  this.props;
-    const body = {
-      ticketId,
-      cardData: {
-        issuer: 'Visa',
-        number: this.state.number,
-        name: this.state.name,
-        expirationDate: dayjs(this.state.expiry).add(1, 'day').toISOString(),
-        cvv: this.state.cvc
-      },
-    };
-    console.log(body);
-    postPayment(token, body).then(setReload(reload => reload + 1));
-  }
+   handleSubmit = async(e) => {
+     e.preventDefault();
+     const { postPayment, ticketId, setReload, reload } =  this.props;
+     try{
+       const body = {
+         ticketId,
+         cardData: {
+           issuer: 'Visa',
+           number: this.state.number,
+           name: this.state.name,
+           expirationDate: dayjs(this.state.expiry).add(1, 'day').toISOString(),
+           cvv: this.state.cvc
+         },
+       };
+       await postPayment(body);
+       setReload(reload => reload + 1);
+       toast('Compra confirmada');
+     } catch (err) {
+       toast('Verifique suas informações');
+     }
+   }
 
   handleInputFocus = (e) => {
     this.setState({ focus: e.target.name });
@@ -55,7 +59,7 @@ export default class PaymentForm extends React.Component {
         />
         <CreditCardForm onSubmit={this.handleSubmit}>
         	<input
-            type="tel"
+            type="number"
             name="number"
             placeholder="Card Number"
             onChange={this.handleInputChange}
@@ -63,7 +67,7 @@ export default class PaymentForm extends React.Component {
           />
           <label>E.g.: 49..., 51..., 36..., 37...</label>
           <input
-            type="tel"
+            type="text"
             name="name"
             placeholder="Name"
             onChange={this.handleInputChange}

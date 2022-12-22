@@ -7,7 +7,7 @@ export default function TicketScreen({ ticket, setReload, reload }) {
   return(
     <>
       <StyledTypography variant="h4">Ingresso e pagamento</StyledTypography>
-      {ticket ? <CreditCardScreen ticket={ticket} setReload={setReload} reload={reload}/> : <SelectTicket/>}
+      {ticket.id ? <CreditCardScreen ticket={ticket} setReload={setReload} reload={reload}/> : <SelectTicket setReload={setReload} reload={reload}/>}
     </>
   );
 };
