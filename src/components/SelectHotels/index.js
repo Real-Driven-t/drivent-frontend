@@ -9,7 +9,9 @@ import HotelBooking from './HotelBooking';
 import { useEffect } from 'react';
 
 export default function SelectHotels() {
-  const { booking } = useBooking();
+  const { getBooking } = useBooking();
+  const [reload, setReload] = useState(0);
+  const [booking, setBooking] = useState({});
   const [isChangeRoom, setIsChangeRoom] = useState(false);
   const [authStatus, setAutStatus] = useState({
     isAllowed: false,
@@ -17,15 +19,17 @@ export default function SelectHotels() {
   });
 
   useEffect(() => {
-    if (booking) {
-      setAutStatus(false);
-    }
-  }, [booking]);
+    const promisse = getBooking();
+    promisse.then((p) => {
+      if (p) setBooking(p);
+    });
+  }, [reload]);
 
   return (
     <>
       <StyledTypography variant="h4">Escolha de hotel e quarto</StyledTypography>
-      {booking ? (
+      <ValidateHotel authStatus={authStatus} setAutStatus={setAutStatus} />
+      {booking.id ? (
         <HotelBooking
           booking={booking}
           isChangeRoom={isChangeRoom}
@@ -33,10 +37,13 @@ export default function SelectHotels() {
           setAutStatus={setAutStatus}
         />
       ) : (
-        <ValidateHotel authStatus={authStatus} setAutStatus={setAutStatus} />
+        <HotelsRender reload={reload} setReload={setReload} />
       )}
-      {authStatus.isAllowed ? <HotelsRender /> : <></>}
-      {isChangeRoom ? <HotelsRender bookingId={booking.id} setIsChangeRoom={setIsChangeRoom} /> : <></>}
+      {isChangeRoom ? (
+        <HotelsRender bookingId={booking.id} setIsChangeRoom={setIsChangeRoom} reload={reload} setReload={setReload} />
+      ) : (
+        <></>
+      )}
     </>
   );
 }

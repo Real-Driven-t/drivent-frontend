@@ -5,7 +5,7 @@ import RoomsOfHotel from '../Rooms';
 import styled from 'styled-components';
 import { useEffect, useState } from 'react';
 
-export default function HotelsRender({ bookingId, setIsChangeRoom }) {
+export default function HotelsRender({ bookingId, setIsChangeRoom, reload, setReload }) {
   const hotels = useHotels();
 
   const [content, setContent] = useState(<></>);
@@ -24,7 +24,13 @@ export default function HotelsRender({ bookingId, setIsChangeRoom }) {
           {!selectHotel ? (
             ''
           ) : (
-            <RoomsOfHotel bookingId={bookingId} hotelId={selectHotel} setIsChangeRoom={setIsChangeRoom} />
+            <RoomsOfHotel
+              bookingId={bookingId}
+              hotelId={selectHotel}
+              setIsChangeRoom={setIsChangeRoom}
+              reload={reload}
+              setReload={setReload}
+            />
           )}
         </>
       );

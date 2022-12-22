@@ -8,7 +8,7 @@ import useRooms from '../../hooks/api/useRooms';
 import useCreateBooking from '../../hooks/api/useCreateBooking';
 import useUpdateBooking from '../../hooks/api/useUpdateBooking';
 
-export default function RoomsOfHotel({ hotelId, bookingId, setIsChangeRoom }) {
+export default function RoomsOfHotel({ hotelId, bookingId, setIsChangeRoom, reload, setReload }) {
   const [roomIdSelected, setRoomIdSelected] = useState(0);
   const [rooms, setRooms] = useState([]);
   const { putBooking } = useUpdateBooking();
@@ -32,11 +32,13 @@ export default function RoomsOfHotel({ hotelId, bookingId, setIsChangeRoom }) {
         setIsChangeRoom(false);
         toast('Informações alteradas com sucesso!');
         if (UpdateBookingError) throw UpdateBookingError;
+        setReload((reload) => reload + 1);
         return;
       }
       const { bookingError } = await createBooking(roomIdSelected);
       toast('Informações salvas com sucesso!');
       if (bookingError) throw bookingError;
+      setReload((reload) => reload + 1);
     } catch (error) {
       toast('Não foi possível salvar suas informações!');
     }

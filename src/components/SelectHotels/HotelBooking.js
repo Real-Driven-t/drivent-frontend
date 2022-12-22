@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import Button from '../Form/Button';
 
-export default function HotelBooking({ booking, isChangeRoom, setIsChangeRoom, setAutStatus }) {
+export default function HotelBooking({ booking, isChangeRoom, setIsChangeRoom }) {
   const getCapacity = () => {
     const capacity = booking?.Room.capacity;
     if (capacity === 1) {
@@ -24,7 +24,6 @@ export default function HotelBooking({ booking, isChangeRoom, setIsChangeRoom, s
 
   function changeRoom() {
     setIsChangeRoom(true);
-    setAutStatus(false);
   }
 
   return (
