@@ -45,7 +45,7 @@ export default function PersonalInformationForm() {
       const newData = {
         name: data.name,
         cpf: data.cpf.replaceAll('.', '').replaceAll('-', ''),
-        birthday: dayjs(data.birthday).toISOString(),
+        birthday: '2011-10-05T14:48:00.000Z',
         address: {
           cep: data.cep,
           street: data.street,
