@@ -12,12 +12,17 @@ export default function PaymentScreen() {
 
   useEffect(() => {
     const promisse = getUserTicket();
-    promisse.then(p => { if(p) setTicket(p); });
+    promisse.then((p) => {
+      if (p) setTicket(p);
+    });
   }, [reload]);
-  console.log(ticket);
-  return(
+  return (
     <>
-      {!enrollment ? <ErrorWarper>Você precisa completar sua inscrição antes de prosseguir pra escolha de ingresso</ErrorWarper> : <TicketScreen ticket={ticket} setReload={setReload} reload={reload}/>}
+      {!enrollment ? (
+        <ErrorWarper>Você precisa completar sua inscrição antes de prosseguir pra escolha de ingresso</ErrorWarper>
+      ) : (
+        <TicketScreen ticket={ticket} setReload={setReload} reload={reload} />
+      )}
     </>
   );
 }
