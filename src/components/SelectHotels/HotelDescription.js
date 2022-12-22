@@ -6,7 +6,6 @@ import useRooms from '../../hooks/api/useRooms';
 
 export default function HotelDescription({ value, selectHotel, setSelectHotel }) {
   const [roomType, setRoomType] = useState('');
-  const [fullyCapacity, setFullyCapacity] = useState(0);
   const [isSelect, setIsSelect] = useState(false);
 
   const { rooms } = useRooms(value.id);
@@ -26,16 +25,12 @@ export default function HotelDescription({ value, selectHotel, setSelectHotel })
 
   useEffect(() => {
     let hash = {};
-    let capacity = 0;
     for (let i = 0; i < value.Rooms.length; i++) {
-      capacity += value.Rooms[i].capacity;
       if (hash[value.Rooms[i].capacity]) {
         continue;
       }
       hash[value.Rooms[i].capacity] = true;
     }
-
-    setFullyCapacity(capacity);
 
     if (hash[1] && hash[2]) {
       setRoomType('Single e Double');
@@ -75,7 +70,7 @@ export default function HotelDescription({ value, selectHotel, setSelectHotel })
 
 const Description = styled.div`
   width: 196px;
-  height: 264px;
+  min-height: 264px;
   border-radius: 10px;
   margin: 0 20px 10px 0;
   display: flex;
@@ -104,6 +99,7 @@ const Description = styled.div`
     font-size: 12px;
     line-height: 14px;
     color: #3c3c3c;
+    margin: 14px 0 2px 0;
   }
   h2 {
     width: 90%;
@@ -111,6 +107,5 @@ const Description = styled.div`
     font-size: 12px;
     line-height: 14px;
     color: #3c3c3c;
-    margin: 2px 0 14px 0;
   }
 `;

@@ -12,6 +12,9 @@ export default function SelectActivities() {
     message: '',
   });
 
+  const date = new Date();
+  date.setHours(0, 0, 0, 0);
+
   useEffect(() => {
     if (ticket || ticketError) verifyPermission({ ticket, setAuthStatus, ticketError });
   }, [ticket, ticketError]);
