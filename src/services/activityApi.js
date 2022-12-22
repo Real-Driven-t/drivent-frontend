@@ -9,3 +9,13 @@ export async function getActivitiestWithPlace(token, body) {
 
   return response.data;
 }
+
+export async function getDaysWithActivities(token) {
+  const response = await api.get('/activities/days', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+}
