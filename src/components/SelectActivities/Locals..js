@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import useActivitiesByDay from '../../hooks/api/useActivitiesByDate';
 import DayButton from './DayButton';
 
