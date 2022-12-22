@@ -1,19 +1,43 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import styled from 'styled-components';
 
 import Room from './Room';
 import useRooms from '../../hooks/api/useRooms';
+import useCreateBooking from '../../hooks/api/useCreateBooking';
+import useUpdateBooking from '../../hooks/api/useUpdateBooking';
+import { toast } from 'react-toastify';
 
-export default function RoomsOfHotel({ hotelId }) {
+export default function RoomsOfHotel({ hotelId, bookingId, setIsChangeRoom }) {
   const [roomIdSelected, setRoomIdSelected] = useState(0);
-  const { rooms } = useRooms(hotelId);
+  const [rooms, setRooms] = useState([]);
+  const { putBooking } = useUpdateBooking();
+  const { createBooking } = useCreateBooking();
+  const { getRooms } = useRooms(hotelId);
   const selectedId = useRef(0);
 
   const handleClick = (roomId) => {
     selectedId.current = roomId;
     setRoomIdSelected(roomId);
   };
+
+  useEffect(() => {
+    getRooms().then((res) => setRooms(res));
+  }, [hotelId]);
+
+  async function upsertBooking() {
+    try {
+      if (bookingId) {
+        const { UpdateBookingError } = await putBooking(roomIdSelected, bookingId);
+        setIsChangeRoom(false);
+        return toast('Informações alteradas com sucesso!');
+      }
+      const { bookingError } = await createBooking(roomIdSelected);
+      return toast('Informações salvas com sucesso!');
+    } catch (error) {
+      toast('Não foi possível salvar suas informações!');
+    }
+  }
 
   return (
     <ContainerRooms>
@@ -31,7 +55,10 @@ export default function RoomsOfHotel({ hotelId }) {
           />
         ))}
       </Rooms>
-      {roomIdSelected === 0 ? '' : <button>RESERVAR QUARTO</button>}
+      {
+        //prettier-ignore
+        roomIdSelected === 0 ? '' : <button onClick={async() => await upsertBooking()}>RESERVAR QUARTO</button>
+      }
     </ContainerRooms>
   );
 }
