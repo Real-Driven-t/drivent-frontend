@@ -36,5 +36,5 @@ export default function ValidateHotel({ authStatus, setAutStatus }) {
     }
   }
 
-  return <>{!authStatus.isAllowed ? <ErrorWrapper>{authStatus.message}</ErrorWrapper> : <></>}</>;
+  return <>{!authStatus.isAllowed ? <ErrorWrapper>{authStatus.message}</ErrorWrapper> : ''}</>;
 }
