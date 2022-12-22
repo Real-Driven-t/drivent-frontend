@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import useActivitiesByDay from '../../hooks/api/useActivitiesByDate';
+import DayButton from './DayButton';
 
 export default function Locals() {
   const date = new Date();
   date.setHours(0, 0, 0, 0);
   const body = { day: date.toISOString() };
   const [activities, setActivities] = useState([]);
-  const { getActivitiesByDay } = useActivitiesByDay(body);
+  const { getActivitiesByDay } = useActivitiesByDay();
 
-  /*  useEffect(() => {
-    getActivitiesByDay().then((res) => setActivities(res));
-  }, [body]); */
+  useEffect(() => {
+    const promisse = getActivitiesByDay(body.day);
+    promisse.then((p) => {
+      if (p) setActivities(p);
+    });
+  }, []);
 
-  return <Wrapper> 'Carregando...' </Wrapper>;
+  return <>{activities.length !== 0 ? <DayButton activities={activities} /> : <>Deu ruim...</>}</>;
 }
-
-const Wrapper = styled.div`
-  margin-top: 60px;
-`;
