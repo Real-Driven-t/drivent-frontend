@@ -9,3 +9,13 @@ export async function getActivitiestWithPlace(token, body) {
 
   return response.data;
 }
+
+export async function createRegisterActivity(token, body) {
+  const response = await api.post('/activities', body, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+}
