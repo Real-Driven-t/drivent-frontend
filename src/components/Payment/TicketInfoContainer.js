@@ -1,18 +1,17 @@
 import styled from 'styled-components';
 import { Wrapper } from './commonStyles';
 
-export default function TicketInfoContainer( { ticketType } ) {
+export default function TicketInfoContainer({ ticketType }) {
   const ticketInfo = {
     name: '',
   };
-  console.log(ticketType);
-  if(ticketType.isRemote) {
-    ticketInfo.name ='Online';
-  } else if(!ticketType.includesHotel) {
-    ticketInfo.name ='Presencial';
+  if (ticketType.isRemote) {
+    ticketInfo.name = 'Online';
+  } else if (!ticketType.includesHotel) {
+    ticketInfo.name = 'Presencial';
   } else {
-    ticketInfo.name ='Presencial + Com Hotel';
-  };
+    ticketInfo.name = 'Presencial + Com Hotel';
+  }
 
   return (
     <>
@@ -25,12 +24,12 @@ export default function TicketInfoContainer( { ticketType } ) {
       </TicketContainer>
     </>
   );
-};
+}
 
 const TicketContainer = styled.div`
   width: 290px;
   height: 108px;
-  background-color: #FFEED2;
+  background-color: #ffeed2;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
@@ -46,4 +45,3 @@ const TicketContainer = styled.div`
     margin-top: 8px;
   }
 `;
-

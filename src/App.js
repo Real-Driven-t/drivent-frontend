@@ -16,8 +16,6 @@ import { UserProvider } from './contexts/UserContext';
 
 import useToken from './hooks/useToken';
 
-console.log(process.env.REACT_APP_API_BASE_URL);
-
 export default function App() {
   return (
     <>

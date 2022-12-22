@@ -22,9 +22,10 @@ export default function Submit({ total, ticketTypes, setReload }) {
     };
 
     try {
-      await saveTicket(data);
+      const { saveTicketError } = await saveTicket(data);
+      if (saveTicketError) throw saveTicketError;
       toast('Informações salvas com sucesso!');
-      setReload(reload => reload + 1);
+      setReload((reload) => reload + 1);
     } catch (err) {
       toast('Não foi possível salvar suas informações!');
     }
