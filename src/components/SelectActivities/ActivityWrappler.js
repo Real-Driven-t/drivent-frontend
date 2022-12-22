@@ -3,11 +3,13 @@ import { IoMdExit, IoMdCloseCircle } from 'react-icons/io';
 
 export default function ActivityWrappler({ info }) {
   function duration() {
-    const start = new Date(info.start);
-    const startHour = start.getHours();
-    const startMinute = start.getMinutes();
+    const startDate = new Date(info.start);
+    const startHour = startDate.toTimeString();
 
-    return `${startHour}:${startMinute} - `;
+    const durationDate = new Date(info.duration);
+    const durationHour = durationDate.toTimeString();
+
+    return `${startHour.slice(0, 5)} - ${durationHour.slice(0, 5)}`;
   }
 
   return (
