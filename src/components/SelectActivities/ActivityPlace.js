@@ -59,6 +59,7 @@ const Container = styled.div`
 
   @media only screen and (max-width: 748px) {
     max-width: 100%;
+    height: fit-content;
     margin-bottom: 30px;
   }
 `;
