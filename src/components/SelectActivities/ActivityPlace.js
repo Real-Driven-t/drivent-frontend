@@ -52,6 +52,7 @@ const Container = styled.div`
   border: 1px solid #d7d7d7;
   padding-top: 10px;
   overflow-y: scroll;
+  scrollbar-width: none;
   ::-webkit-scrollbar {
     display: none;
   }
