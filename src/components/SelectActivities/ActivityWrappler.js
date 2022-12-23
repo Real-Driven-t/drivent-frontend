@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { IoMdExit, IoMdCloseCircle } from 'react-icons/io';
+import { IoMdCloseCircle } from 'react-icons/io';
 import { useEffect, useState } from 'react';
 import Subscription from './Subscription';
 
@@ -49,7 +49,7 @@ export default function ActivityWrappler({ info }) {
 
 const Container = styled.div`
   max-width: 265px;
-  height: ${(props) => `${props.diff * 80} + px`};
+  height: ${(props) => props.diff * 80 + 'px'};
   left: 350px;
   top: 415px;
   background: ${(props) => (props.registrationCompleted ? '#CDF6DB' : '#f1f1f1')};
