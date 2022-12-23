@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 import { IoMdExit, IoMdCloseCircle } from 'react-icons/io';
 import { useEffect, useState } from 'react';
+import Subscription from './Subscription';
 
 export default function ActivityWrappler({ info }) {
   const [diffHours, setDiffHours] = useState(1);
+  const [registrationCompleted, setRegistrationCompleted] = useState(false);
 
   useEffect(() => {
     setDiffHours((new Date(info.duration) - new Date(info.start)) / (1000 * 60 * 60));
@@ -20,7 +22,7 @@ export default function ActivityWrappler({ info }) {
   }
 
   return (
-    <Container diff={diffHours}>
+    <Container diff={diffHours} registrationCompleted={registrationCompleted}>
       <Title>
         {info.name}
         <h1>{duration()}</h1>
@@ -28,8 +30,11 @@ export default function ActivityWrappler({ info }) {
       <Information capacity={info.capacity > 0 ? '#078632' : '#CC6666'}>
         {info.capacity - info._count.ActivityBooking > 0 ? (
           <>
-            <IoMdExit />
-            <h1>{info.capacity - info._count.ActivityBooking} vagas</h1>
+            <Subscription
+              info={info}
+              registrationCompleted={registrationCompleted}
+              setRegistrationCompleted={setRegistrationCompleted}
+            />
           </>
         ) : (
           <>
@@ -47,7 +52,7 @@ const Container = styled.div`
   height: ${(props) => `${props.diff * 80} + px`};
   left: 350px;
   top: 415px;
-  background: #f1f1f1;
+  background: ${(props) => (props.registrationCompleted ? '#CDF6DB' : '#f1f1f1')};
   border-radius: 5px;
   margin: 0 10px 10px 10px;
   padding: 5% 0 5% 5%;
