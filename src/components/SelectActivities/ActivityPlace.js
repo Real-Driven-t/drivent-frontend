@@ -34,9 +34,11 @@ const Container = styled.div`
   width: 100%;
   height: 390px;
   border: 1px solid #d7d7d7;
-  scrollbar-width: none;
   padding-top: 10px;
   overflow-y: scroll;
+  ::-webkit-scrollbar {
+    display: none;
+  }
 
   @media only screen and (max-width: 748px) {
     max-width: 100%;
