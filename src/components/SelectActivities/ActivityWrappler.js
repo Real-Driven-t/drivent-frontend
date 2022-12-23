@@ -27,7 +27,7 @@ export default function ActivityWrappler({ info }) {
         {info.name}
         <h1>{duration()}</h1>
       </Title>
-      <Information capacity={info.capacity > 0 ? '#078632' : '#CC6666'}>
+      <Information capacity={info.capacity - info._count.ActivityBooking > 0 ? '#078632' : '#CC6666'}>
         {info.capacity - info._count.ActivityBooking > 0 ? (
           <>
             <Subscription
