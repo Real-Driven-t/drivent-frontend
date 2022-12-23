@@ -10,10 +10,12 @@ export default function Locals() {
   const { days } = useDaysWithActivity();
 
   useEffect(() => {
-    const promisse = getActivitiestWithPlace(selectedDay);
-    promisse.then((p) => {
-      if (p) setActivities(p);
-    });
+    if (selectedDay !== '') {
+      const promisse = getActivitiestWithPlace(selectedDay);
+      promisse.then((p) => {
+        if (p) setActivities(p);
+      });
+    }
   }, [selectedDay]);
 
   return <>{days ? <DaysContainer days={days} setSelectedDay={setSelectedDay} activities={activities} /> : ''}</>;
