@@ -26,10 +26,10 @@ export default function ActivityWrappler({ info }) {
         <h1>{duration()}</h1>
       </Title>
       <Information capacity={info.capacity > 0 ? '#078632' : '#CC6666'}>
-        {info.capacity > 0 ? (
+        {info.capacity - info._count.ActivityBooking > 0 ? (
           <>
             <IoMdExit />
-            <h1>{info.capacity} vagas</h1>
+            <h1>{info.capacity - info._count.ActivityBooking} vagas</h1>
           </>
         ) : (
           <>
@@ -44,7 +44,7 @@ export default function ActivityWrappler({ info }) {
 
 const Container = styled.div`
   max-width: 265px;
-  height: ${(props) => props.diff * 80 + 'px'};
+  height: ${(props) => `${props.diff * 80} + px`};
   left: 350px;
   top: 415px;
   background: #f1f1f1;

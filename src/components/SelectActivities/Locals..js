@@ -14,7 +14,6 @@ export default function Locals() {
     const promisse = getActivitiestWithPlace(selectedDay);
     promisse.then(p => { if(p) setActivities(p); });
   }, [selectedDay]);
-  console.log(activities);
   return(
     <>
       {/*activities.length !== 0 ? <DayButton activities={activities} /> : <>Deu ruim...</>*/}
