@@ -3,7 +3,7 @@ import 'dayjs/locale/pt-br';
 import styled from 'styled-components';
 
 export default function Day({ day, setSelectedDay }) {
-  return(
+  return (
     <>
       <DayContainer onClick={() => setSelectedDay(dayjs(day).format('MM/DD').replace('/', '*'))}>
         {dayjs(day).locale('pt-br').format('dddd').split('-')[0]}, {dayjs(day).format('DD/MM')}
@@ -26,9 +26,4 @@ const DayContainer = styled.div`
   justify-content: center;
   margin-right: 17px;
   cursor: pointer;
-`;
-
-const Place = styled.div`
-  display: flex;
-  align-items: center;
 `;
