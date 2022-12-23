@@ -32,14 +32,14 @@ const Title = styled.div`
 `;
 const Container = styled.div`
   width: 100%;
-  max-width: 265px;
-  min-height: 390px;
+  height: 390px;
   border: 1px solid #d7d7d7;
-  padding: 10px 0 0 0;
+  scrollbar-width: none;
+  padding-top: 10px;
+  overflow-y: scroll;
 
   @media only screen and (max-width: 748px) {
     max-width: 100%;
     margin-bottom: 30px;
-    min-height: fit-content;
   }
 `;
