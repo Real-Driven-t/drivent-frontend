@@ -14,4 +14,8 @@ export default function Activities({ activities }) {
 const Place = styled.div`
   display: flex;
   align-items: center;
+
+  @media only screen and (max-width: 748px) {
+    flex-direction: column;
+  }
 `;
