@@ -4,9 +4,11 @@ import styled from 'styled-components';
 
 export default function Day({ day, setSelectedDay }) {
   return(
-    <DayContainer onClick={() => setSelectedDay(dayjs(day).format('MM/DD'))}>
-      {dayjs(day).locale('pt-br').format('dddd').split('-')[0]}, {dayjs(day).format('DD/MM')}
-    </DayContainer>
+    <>
+      <DayContainer onClick={() => setSelectedDay(dayjs(day).format('MM/DD').replace('/', '*'))}>
+        {dayjs(day).locale('pt-br').format('dddd').split('-')[0]}, {dayjs(day).format('DD/MM')}
+      </DayContainer>
+    </>
   );
 }
 

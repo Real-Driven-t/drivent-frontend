@@ -1,7 +1,7 @@
 import api from './api';
 
-export async function getActivitiestWithPlace(token, body) {
-  const response = await api.get(`/activities/${body}`, {
+export async function getActivitiestWithPlace({ token, params }) {
+  const response = await api.get(`/activities/day/${params}`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

@@ -1,25 +1,24 @@
 import { useEffect, useState } from 'react';
 import useActivitiesByDay from '../../hooks/api/useActivitiesByDate';
 import useDaysWithActivity from '../../hooks/api/useDaysWithActiviy';
-import DayButton from './DayButton';
+import Activities from './Activities';
 import DaysContainer from './DaysContainer';
 
 export default function Locals() {
   //const body = { day: date.toISOString() };
   const [ selectedDay, setSelectedDay ] = useState('');
   const [activities, setActivities] = useState([]);
-  const { getActivitiesByDay } = useActivitiesByDay();
+  const { getActivitiestWithPlace } = useActivitiesByDay();
   const { days } = useDaysWithActivity();
-  console.log(selectedDay);
-  console.log(days);
   useEffect(() => {
-
+    const promisse = getActivitiestWithPlace(selectedDay);
+    promisse.then(p => { if(p) setActivities(p); });
   }, [selectedDay]);
-
+  console.log(activities);
   return(
     <>
       {/*activities.length !== 0 ? <DayButton activities={activities} /> : <>Deu ruim...</>*/}
-      {days ? <DaysContainer days={days} setSelectedDay={setSelectedDay}/> : ''}
+      {days ? <DaysContainer days={days} setSelectedDay={setSelectedDay} activities={activities}/> : ''}
     </>
   );
 }

@@ -10,13 +10,13 @@ export default function useActivitiesByDay() {
     data: activitiesByDay,
     loading: activitiesByDayLoading,
     error: activitiesByDayError,
-    act: getActivitiesByDay,
-  } = useAsync((day) => activityApi.getActivitiestWithPlace(token, day), false);
+    act: getActivitiestWithPlace,
+  } = useAsync((params) => activityApi.getActivitiestWithPlace({ token, params: params }), false);
 
   return {
     activitiesByDay,
     activitiesByDayLoading,
     activitiesByDayError,
-    getActivitiesByDay,
+    getActivitiestWithPlace,
   };
 }
