@@ -7,9 +7,15 @@ import useRooms from '../../hooks/api/useRooms';
 export default function HotelDescription({ value, selectHotel, setSelectHotel }) {
   const [roomType, setRoomType] = useState('');
   const [isSelect, setIsSelect] = useState(false);
+  const [vacancies, setVacancies] = useState(0);
 
-  const { rooms } = useRooms(value.id);
-  const totalVancancies = rooms?.reduce((total, room) => total + room.capacity - room._count.Booking, 0);
+  const { getRooms } = useRooms(value.id);
+
+  async function countVancancies() {
+    const rooms = await getRooms();
+    const totalVancancies = await rooms?.reduce((total, room) => total + room.capacity - room._count.Booking, 0);
+    setVacancies(totalVancancies);
+  }
 
   function changeColor() {
     setSelectHotel(value.id);
@@ -24,6 +30,8 @@ export default function HotelDescription({ value, selectHotel, setSelectHotel })
   }, [selectHotel]);
 
   useEffect(() => {
+    countVancancies();
+
     let hash = {};
     for (let i = 0; i < value.Rooms.length; i++) {
       if (hash[value.Rooms[i].capacity]) {
@@ -62,7 +70,7 @@ export default function HotelDescription({ value, selectHotel, setSelectHotel })
         <h1>Tipos de acomodação:</h1>
         <h2>{roomType}</h2>
         <h1>Vagas disponíveis:</h1>
-        <h2>{totalVancancies}</h2>
+        <h2>{vacancies}</h2>
       </Description>
     </>
   );
