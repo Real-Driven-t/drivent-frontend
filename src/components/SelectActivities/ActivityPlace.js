@@ -1,11 +1,15 @@
 import styled from 'styled-components';
 import ActivityWrappler from './ActivityWrappler';
 
+export const MiddlePlace = Object.freeze({
+  SIDEAUDITORIUM: 'Auditório Lateral',
+});
+
 export default function ActivityPlace({ place }) {
   return (
     <Wrappler>
       <Title>{place.name}</Title>
-      <Container>
+      <Container place={place.name}>
         {place.Activity.map((value, index) => (
           <ActivityWrappler key={index} info={value} />
         ))}
@@ -50,6 +54,8 @@ const Container = styled.div`
   width: 100%;
   height: 390px;
   border: 1px solid #d7d7d7;
+  border-left: ${(props) => (props.place === MiddlePlace.SIDEAUDITORIUM ? 'none' : '1px solid #d7d7d7')};
+  border-right: ${(props) => (props.place === MiddlePlace.SIDEAUDITORIUM ? 'none' : '1px solid #d7d7d7')};
   padding-top: 10px;
   overflow-y: scroll;
   scrollbar-width: none;
@@ -59,6 +65,8 @@ const Container = styled.div`
 
   @media only screen and (max-width: 748px) {
     max-width: 100%;
+    height: fit-content;
     margin-bottom: 30px;
+    border: 1px solid #d7d7d7;
   }
 `;
