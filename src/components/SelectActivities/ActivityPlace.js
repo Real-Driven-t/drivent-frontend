@@ -17,6 +17,7 @@ export default function ActivityPlace({ place }) {
 const Wrappler = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
 `;
 
 const Title = styled.div`
@@ -30,8 +31,15 @@ const Title = styled.div`
   margin: 0 0 13px 0;
 `;
 const Container = styled.div`
-  width: auto;
-  height: auto;
+  width: 100%;
+  max-width: 265px;
+  min-height: 390px;
   border: 1px solid #d7d7d7;
   padding: 10px 0 0 0;
+
+  @media only screen and (max-width: 748px) {
+    max-width: 100%;
+    margin-bottom: 30px;
+    min-height: fit-content;
+  }
 `;
