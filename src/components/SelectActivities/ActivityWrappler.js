@@ -1,15 +1,19 @@
 import styled from 'styled-components';
 import { IoMdCloseCircle } from 'react-icons/io';
 import { useEffect, useState } from 'react';
-import Subscription from './Subscription';
+import Subscription, { Confirmed } from './Subscription';
 
-export default function ActivityWrappler({ info }) {
+export default function ActivityWrappler({ info, userBookings }) {
   const [diffHours, setDiffHours] = useState(1);
-  const [registrationCompleted, setRegistrationCompleted] = useState(0);
+  const [registeredId, setRegisteredId] = useState(0);
+  const available = info.capacity - info._count.ActivityBooking > 0 || info.id === registeredId;
 
   useEffect(() => {
     setDiffHours((new Date(info.duration) - new Date(info.start)) / (1000 * 60 * 60));
-  }, []);
+    if (userBookings.includes(info.id)) {
+      setRegisteredId(info.id);
+    }
+  }, [info]);
 
   function duration() {
     const startDate = new Date(info.start);
@@ -22,26 +26,29 @@ export default function ActivityWrappler({ info }) {
   }
 
   return (
-    <Container diff={diffHours} info={info} registrationCompleted={registrationCompleted}>
+    <Container diff={diffHours} info={info} registeredId={registeredId}>
       <Title>
         {info.name}
         <h1>{duration()}</h1>
       </Title>
-      <Information capacity={info.capacity - info._count.ActivityBooking > 0 ? '#078632' : '#CC6666'}>
-        {info.capacity - info._count.ActivityBooking > 0 ? (
-          <>
-            <Subscription
-              info={info}
-              registrationCompleted={registrationCompleted}
-              setRegistrationCompleted={setRegistrationCompleted}
-            />
-          </>
-        ) : (
-          <>
-            <IoMdCloseCircle />
-            <h1>Esgotado</h1>
-          </>
-        )}
+      <Information capacity={available ? '#078632' : '#CC6666'}>
+        <>
+          {registeredId === info.id ? (
+            <>
+              <Confirmed />
+              <h1>Inscrito</h1>
+            </>
+          ) : info.capacity - info._count.ActivityBooking > 0 ? (
+            <>
+              <Subscription info={info} setRegisteredId={setRegisteredId} />
+            </>
+          ) : (
+            <>
+              <IoMdCloseCircle />
+              <h1>Esgotado</h1>
+            </>
+          )}
+        </>
       </Information>
     </Container>
   );
@@ -52,7 +59,7 @@ const Container = styled.div`
   height: ${(props) => props.diff * 80 + 'px'};
   left: 350px;
   top: 415px;
-  background: ${(props) => (props.registrationCompleted === props.info.id ? '#CDF6DB' : '#f1f1f1')};
+  background: ${(props) => (props.registeredId === props.info.id ? '#CDF6DB' : '#f1f1f1')};
   border-radius: 5px;
   margin: 0 10px 10px 10px;
   padding: 5% 0 5% 5%;
