@@ -24,7 +24,7 @@ export default function Subscription({ info, setRegistrationCompleted, registrat
                   toast('Não foi possível realizar a inscrição');
                   return;
                 }
-                setRegistrationCompleted(true);
+                setRegistrationCompleted(info.id);
                 toast('Inscrição realizada com sucesso');
               } catch (error) {
                 toast('Não foi possível realizar a inscrição');
