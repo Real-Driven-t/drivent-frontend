@@ -20,6 +20,16 @@ export async function getDaysWithActivities(token) {
   return response.data;
 }
 
+export async function getUserActivitiesBooking(token) {
+  const response = await api.get('/activities/booking', {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+}
+
 export async function createRegisterActivity(token, body) {
   const response = await api.post('/activities', body, {
     headers: {

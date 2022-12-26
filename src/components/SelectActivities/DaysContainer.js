@@ -5,13 +5,22 @@ import { useState } from 'react';
 
 export default function DaysContainer({ days, setSelectedDay, activities }) {
   const [selected, setSelected] = useState(-1);
+
   return (
     <>
       <Container>
         {days.map((d, i) => (
-          <Day key={i} day={d.day} id={i} setSelectedDay={setSelectedDay} selected={selected} setSelected={setSelected}/>
+          <Day
+            key={i}
+            day={d.day}
+            id={i}
+            setSelectedDay={setSelectedDay}
+            selected={selected}
+            setSelected={setSelected}
+          />
         ))}
       </Container>
+
       {activities[0] ? <Activities activities={activities} /> : ''}
     </>
   );

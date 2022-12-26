@@ -5,13 +5,13 @@ export const MiddlePlace = Object.freeze({
   SIDEAUDITORIUM: 'Auditório Lateral',
 });
 
-export default function ActivityPlace({ place }) {
+export default function ActivityPlace({ place, userBookings }) {
   return (
     <Wrappler>
       <Title>{place.name}</Title>
       <Container place={place.name}>
         {place.Activity.map((value, index) => (
-          <ActivityWrappler key={index} info={value} />
+          <ActivityWrappler userBookings={userBookings} key={index} info={value} />
         ))}
       </Container>
       <ScrollHide />
