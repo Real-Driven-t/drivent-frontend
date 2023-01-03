@@ -12,6 +12,7 @@ import Link from '../../components/Link';
 import EventInfoContext from '../../contexts/EventInfoContext';
 
 import useSignUp from '../../hooks/api/useSignUp';
+import GithubButton from '../../components/Form/GithubButton';
 
 export default function Enroll() {
   const [email, setEmail] = useState('');
@@ -67,6 +68,9 @@ export default function Enroll() {
           <Button type="submit" color="primary" fullWidth disabled={loadingSignUp}>
             Inscrever
           </Button>
+          <GithubButton color="primary" fullWidth disabled={loadingSignUp}>
+            Entrar com github
+          </GithubButton>
         </form>
       </Row>
       <Row>
