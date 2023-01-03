@@ -26,7 +26,7 @@ export default function ValidateHotel({ authStatus, setAutStatus }) {
         isAllowed: false,
         message: 'Você precisa ter confirmado pagamento antes de fazer a escolha de hospedagem',
       });
-    } else if (ticket.TicketType.isRemote === true) {
+    } else if (ticket.TicketType.isRemote === true || ticket.TicketType.includesHotel === false) {
       setAutStatus({
         isAllowed: false,
         message: 'Sua modalidade de ingresso não inclui hospedagem. Prossiga para a escolha de atividades',
