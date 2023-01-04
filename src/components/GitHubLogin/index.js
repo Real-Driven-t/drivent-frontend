@@ -3,7 +3,7 @@ import MuiButton from '@material-ui/core/Button';
 import { AiFillGithub } from 'react-icons/ai';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import UserContext from '../../contexts/UserContext';
 import { signInWithGitHub } from '../../services/gitHubLoginApi';
 
@@ -27,16 +27,19 @@ export default function GithubButton({ variant = 'contained', children, ...props
   const urlParams = new URLSearchParams(window.location.search);
   const code = urlParams.get('code');
 
-  async function loginWithGitHub() {
-    try {
-      const userData = await signInWithGitHub(code);
-      setUserData(userData);
-      toast('Login realizado com sucesso!');
-      navigate('/dashboard');
-    } catch (err) {
-      toast('Não foi possível fazer o login!');
+  // prettier-ignore
+  useEffect(async() => {
+    if (code) {
+      try {
+        const userData = await signInWithGitHub(code);
+        setUserData(userData);
+        toast('Login realizado com sucesso!');
+        navigate('/dashboard');
+      } catch (err) {
+        toast('Não foi possível fazer o login!');
+      }
     }
-  }
+  }, []);
 
   return (
     <StyledMuiButton variant={variant} {...props} onClick={redirectToGitHub}>

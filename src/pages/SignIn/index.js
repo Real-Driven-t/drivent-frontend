@@ -13,7 +13,7 @@ import EventInfoContext from '../../contexts/EventInfoContext';
 import UserContext from '../../contexts/UserContext';
 
 import useSignIn from '../../hooks/api/useSignIn';
-import GithubButton from '../../components/Form/GithubButton';
+import GithubButton from '../../components/GitHubLogin';
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
