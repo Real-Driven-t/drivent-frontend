@@ -12,8 +12,9 @@ async function redirectToGitHub() {
   const params = {
     response_type: 'code',
     scope: 'user',
-    client_id: 'cd2e7919be740e90c5a4',
-    redirect_uri: 'http://localhost:3000/sign-in',
+    //client_id: 'cd2e7919be740e90c5a4',
+    client_id: process.env.REACT_APP_CLIENT_ID,
+    redirect_uri: process.env.REACT_APP_REDIRECT_URI,
   };
 
   const queryString = '?' + new URLSearchParams(params).toString();
@@ -26,6 +27,9 @@ export default function GithubButton({ variant = 'contained', children, ...props
 
   const urlParams = new URLSearchParams(window.location.search);
   const code = urlParams.get('code');
+
+  const teste = process.env;
+  console.log(teste);
 
   // prettier-ignore
   useEffect(async() => {
