@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Button from '../Form/Button';
 import { toast } from 'react-toastify';
 import useSaveTicket from '../../hooks/api/useSaveTicket';
+import LoadingButton from '../LoadingButton';
 
 export default function Submit({ total, ticketTypes, setReload }) {
   const { saveTicketLoading, saveTicket } = useSaveTicket();
@@ -37,7 +38,7 @@ export default function Submit({ total, ticketTypes, setReload }) {
         Fechado! O total ficou em <span>R$ {total}</span>. Agora é só confirmar:
       </p>
       <Button onClick={() => createTicket()} disabled={saveTicketLoading}>
-        RESERVAR INGRESSO
+        <LoadingButton isLoading={saveTicketLoading}>RESERVAR INGRESSO</LoadingButton>
       </Button>
     </Wrapper>
   );
