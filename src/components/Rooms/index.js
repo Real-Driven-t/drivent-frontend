@@ -23,6 +23,7 @@ export default function RoomsOfHotel({ hotelId, bookingId, setIsChangeRoom, relo
 
   useEffect(() => {
     getRooms().then((res) => setRooms(res));
+    setRoomIdSelected(0);
   }, [hotelId]);
 
   async function upsertBooking() {
@@ -56,6 +57,7 @@ export default function RoomsOfHotel({ hotelId, bookingId, setIsChangeRoom, relo
             roomId={e.id}
             handleClick={handleClick}
             selectedId={selectedId.current}
+            hotelId={hotelId}
             key={index}
           />
         ))}

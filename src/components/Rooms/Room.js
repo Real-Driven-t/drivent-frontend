@@ -12,7 +12,8 @@ function createFreeVacancies(
   handleClick,
   selectedId,
   positionVacancy,
-  setPositionVacancy
+  setPositionVacancy,
+  hotelId
 ) {
   const vacancies = [];
   for (let i = 1; i <= number; i++) {
@@ -25,6 +26,7 @@ function createFreeVacancies(
         positionVacancy={positionVacancy}
         position={i}
         setPositionVacancy={setPositionVacancy}
+        hotelId={hotelId}
         key={i}
       />
     );
@@ -39,7 +41,7 @@ function createVacanciesOccupied(number) {
   return vacancies;
 }
 
-export default function Room({ number, capacity, bookings, roomId, handleClick, selectedId }) {
+export default function Room({ number, capacity, bookings, roomId, handleClick, selectedId, hotelId }) {
   const [background, setBackground] = useState('white');
   const [positionVacancy, setPositionVacancy] = useState(0);
   const freeVacancies = capacity - bookings;
@@ -56,7 +58,8 @@ export default function Room({ number, capacity, bookings, roomId, handleClick, 
             handleClick,
             selectedId,
             positionVacancy,
-            setPositionVacancy
+            setPositionVacancy,
+            hotelId
           )}
           {createVacanciesOccupied(bookings)}
         </div>
