@@ -10,6 +10,7 @@ export default function Vacancy({
   position,
   positionVacancy,
   setPositionVacancy,
+  hotelId,
 }) {
   const [isSelected, setIsSelected] = useState(false);
 
@@ -25,6 +26,12 @@ export default function Vacancy({
       setIsSelected(false);
     }
   }, [positionVacancy]);
+
+  useEffect(() => {
+    setBackground('white');
+    setPositionVacancy(0);
+    setIsSelected(false);
+  }, [hotelId]);
   return (
     <div
       onClick={() => {

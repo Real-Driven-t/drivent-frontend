@@ -31,7 +31,8 @@ export default function Enroll() {
       toast('As senhas devem ser iguais!');
     } else {
       try {
-        await signUp(email, password);
+        const { signUpError } = await signUp(email, password);
+        if (signUpError) throw signUpError;
         toast('Inscrito com sucesso! Por favor, faça login.');
         navigate('/sign-in');
       } catch (error) {
