@@ -7,11 +7,12 @@ import Room from './Room';
 import useRooms from '../../hooks/api/useRooms';
 import useCreateBooking from '../../hooks/api/useCreateBooking';
 import useUpdateBooking from '../../hooks/api/useUpdateBooking';
+import LoadingButton from '../LoadingButton';
 
 export default function RoomsOfHotel({ hotelId, bookingId, setIsChangeRoom, reload, setReload }) {
   const [roomIdSelected, setRoomIdSelected] = useState(0);
   const [rooms, setRooms] = useState([]);
-  const { putBooking } = useUpdateBooking();
+  const { putBooking, UpdateBookingLoading } = useUpdateBooking();
   const { createBooking } = useCreateBooking();
   const { getRooms } = useRooms(hotelId);
   const selectedId = useRef(0);
@@ -64,7 +65,9 @@ export default function RoomsOfHotel({ hotelId, bookingId, setIsChangeRoom, relo
       </Rooms>
       {
         //prettier-ignore
-        roomIdSelected === 0 ? '' : <button onClick={async() => await upsertBooking()}>RESERVAR QUARTO</button>
+        roomIdSelected === 0 ? '' : <button onClick={async() => await upsertBooking()}>
+          <LoadingButton isLoading={UpdateBookingLoading}>RESERVAR QUARTO</LoadingButton>
+        </button>
       }
     </ContainerRooms>
   );
