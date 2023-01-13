@@ -5,11 +5,12 @@ import { useState } from 'react';
 import useBooking from '../../hooks/api/useBooking';
 import styled from 'styled-components';
 import Typography from '@material-ui/core/Typography';
-import HotelBooking from './HotelBooking';
 import { useEffect } from 'react';
+import HotelLogic from './HotelLogic';
+import LoadingScreen from '../LoadingScreen';
 
 export default function SelectHotels() {
-  const { getBooking } = useBooking();
+  const { getBooking, bookingLoading } = useBooking();
   const [reload, setReload] = useState(0);
   const [booking, setBooking] = useState({});
   const [isChangeRoom, setIsChangeRoom] = useState(false);
@@ -29,21 +30,8 @@ export default function SelectHotels() {
     <>
       <StyledTypography variant="h4">Escolha de hotel e quarto</StyledTypography>
       <ValidateHotel authStatus={authStatus} setAutStatus={setAutStatus} />
-      {booking.id ? (
-        <HotelBooking
-          booking={booking}
-          isChangeRoom={isChangeRoom}
-          setIsChangeRoom={setIsChangeRoom}
-          setAutStatus={setAutStatus}
-        />
-      ) : (
-        <HotelsRender reload={reload} setReload={setReload} />
-      )}
-      {isChangeRoom ? (
-        <HotelsRender bookingId={booking.id} setIsChangeRoom={setIsChangeRoom} reload={reload} setReload={setReload} />
-      ) : (
-        <></>
-      )}
+      {bookingLoading ? <LoadingScreen/> :
+        <HotelLogic booking={booking} isChangeRoom={isChangeRoom} setIsChangeRoom={setIsChangeRoom} setAutStatus={setAutStatus} reload={reload} setReload={setReload}/>}
     </>
   );
 }
